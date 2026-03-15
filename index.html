@@ -9,15 +9,15 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #0c0d10;
-      --surface:   #13151a;
-      --border:    #1e2028;
-      --accent:    #5865F2;
-      --accent2:   #7983f5;
-      --gold:      #f0c060;
-      --text:      #e8eaf0;
-      --muted:     #6b6f80;
-      --radius:    14px;
+      --bg:      #0c0d10;
+      --surface: #13151a;
+      --border:  #1e2028;
+      --accent:  #5865F2;
+      --accent2: #7983f5;
+      --gold:    #f0c060;
+      --text:    #e8eaf0;
+      --muted:   #6b6f80;
+      --radius:  14px;
     }
 
     html { scroll-behavior: smooth; }
@@ -31,100 +31,148 @@
       overflow-x: hidden;
     }
 
-    /* ── NOISE TEXTURE ── */
+    /* ── NOISE ── */
     body::before {
       content: '';
       position: fixed; inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-      opacity: .4;
+      pointer-events: none; z-index: 0; opacity: .4;
     }
 
-    /* ── GLOW BLOB ── */
+    /* ── BLOBS ── */
     .blob {
       position: fixed;
-      width: 600px; height: 600px;
+      width: 700px; height: 700px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(88,101,242,.15) 0%, transparent 70%);
-      top: -150px; left: 50%;
+      background: radial-gradient(circle, rgba(88,101,242,.13) 0%, transparent 70%);
+      top: -200px; left: 50%;
       transform: translateX(-50%);
-      pointer-events: none;
-      z-index: 0;
-      animation: pulse 6s ease-in-out infinite alternate;
+      pointer-events: none; z-index: 0;
+      animation: blobPulse 7s ease-in-out infinite alternate;
     }
-    @keyframes pulse { from { transform: translateX(-50%) scale(1); } to { transform: translateX(-50%) scale(1.1); } }
+    .blob2 {
+      position: fixed;
+      width: 450px; height: 450px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(240,192,96,.06) 0%, transparent 70%);
+      bottom: 5%; right: -100px;
+      pointer-events: none; z-index: 0;
+      animation: blobPulse2 9s ease-in-out infinite alternate;
+    }
+    @keyframes blobPulse  { from{transform:translateX(-50%) scale(1)} to{transform:translateX(-50%) scale(1.12)} }
+    @keyframes blobPulse2 { from{transform:scale(1) rotate(0deg)} to{transform:scale(1.18) rotate(25deg)} }
+
+    /* ── CURSOR GLOW ── */
+    #cursor-glow {
+      position: fixed;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(88,101,242,.055) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+      transform: translate(-50%,-50%);
+      top: 0; left: 0;
+      transition: opacity .4s;
+    }
+
+    /* ── PARTICLES ── */
+    #particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0;
+      animation: floatUp linear infinite;
+    }
+    @keyframes floatUp {
+      0%   { transform:translateY(0) scale(1);    opacity:0; }
+      8%   { opacity:.55; }
+      92%  { opacity:.15; }
+      100% { transform:translateY(-110vh) scale(.3); opacity:0; }
+    }
 
     /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0;
       z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 5%;
-      height: 64px;
-      background: rgba(12,13,16,.8);
-      backdrop-filter: blur(16px);
+      padding: 0 5%; height: 64px;
+      background: rgba(12,13,16,.75);
+      backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
+      animation: navDrop .6s cubic-bezier(.16,1,.3,1) both;
     }
+    @keyframes navDrop { from{transform:translateY(-100%);opacity:0} to{transform:translateY(0);opacity:1} }
     .nav-logo {
-      font-family: 'Syne', 'Segoe UI', system-ui, sans-serif;
-      font-weight: 800;
-      font-size: 1.2rem;
+      font-family: 'Syne','Segoe UI',system-ui,sans-serif;
+      font-weight: 800; font-size: 1.2rem;
       color: var(--text);
       display: flex; align-items: center; gap: 10px;
       text-decoration: none;
     }
-    .nav-logo span.fox { font-size: 1.4rem; }
+    .nav-logo .fox { font-size: 1.4rem; display:inline-block; transition: transform .3s; }
+    .nav-logo:hover .fox { transform: rotate(-15deg) scale(1.2); }
     .nav-links { display: flex; gap: 32px; }
     .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: .9rem;
-      font-weight: 400;
+      color: var(--muted); text-decoration: none;
+      font-size: .9rem; font-weight: 400;
+      position: relative; padding-bottom: 2px;
       transition: color .2s;
     }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 1px;
+      background: var(--accent2);
+      transition: width .25s;
+    }
     .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-d1{transition-delay:.06s} .reveal-d2{transition-delay:.12s}
+    .reveal-d3{transition-delay:.18s} .reveal-d4{transition-delay:.24s}
+    .reveal-d5{transition-delay:.30s} .reveal-d6{transition-delay:.36s}
+    .reveal-d7{transition-delay:.42s} .reveal-d8{transition-delay:.48s}
+    .reveal-d9{transition-delay:.54s}
 
     /* ── HERO ── */
     .hero {
-      position: relative;
-      z-index: 1;
+      position: relative; z-index: 1;
       min-height: 100vh;
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       text-align: center;
-      padding: 100px 5% 60px;
+      padding: 100px 5% 80px;
     }
     .badge {
       display: inline-flex; align-items: center; gap: 8px;
       background: rgba(88,101,242,.12);
       border: 1px solid rgba(88,101,242,.3);
       border-radius: 999px;
-      padding: 6px 16px;
-      font-size: .8rem;
-      color: var(--accent2);
-      margin-bottom: 28px;
+      padding: 6px 16px; font-size: .8rem;
+      color: var(--accent2); margin-bottom: 28px;
       animation: fadeUp .6s ease both;
     }
-    .badge::before { content: '●'; font-size: .5rem; color: #5efa8a; animation: blink 1.6s infinite; }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .badge::before { content:'●'; font-size:.5rem; color:#5efa8a; animation:blink 1.6s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
 
     h1 {
-      font-family: 'Syne', 'Segoe UI', system-ui, sans-serif;
+      font-family: 'Syne','Segoe UI',system-ui,sans-serif;
       font-weight: 800;
       font-size: clamp(2.6rem, 6vw, 5rem);
-      line-height: 1.1;
-      letter-spacing: -.02em;
+      line-height: 1.1; letter-spacing: -.02em;
       animation: fadeUp .7s .1s ease both;
     }
     h1 .accent { color: var(--accent2); }
     h1 .gold   { color: var(--gold); }
 
     .hero-sub {
-      margin-top: 20px;
-      max-width: 520px;
-      color: var(--muted);
-      font-size: 1.05rem;
+      margin-top: 20px; max-width: 520px;
+      color: var(--muted); font-size: 1.05rem;
       animation: fadeUp .7s .2s ease both;
     }
 
@@ -135,39 +183,64 @@
     }
     .btn {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 13px 28px;
-      border-radius: var(--radius);
-      font-family: 'DM Sans', 'Segoe UI', system-ui, sans-serif;
-      font-weight: 500;
-      font-size: .95rem;
+      padding: 13px 28px; border-radius: var(--radius);
+      font-family: 'DM Sans','Segoe UI',system-ui,sans-serif;
+      font-weight: 500; font-size: .95rem;
       text-decoration: none;
-      transition: transform .18s, box-shadow .18s, opacity .18s;
-      cursor: pointer;
-      border: none;
+      transition: transform .2s, box-shadow .2s, border-color .2s, color .2s;
+      cursor: pointer; border: 1px solid transparent;
+      position: relative; overflow: hidden;
     }
-    .btn:hover { transform: translateY(-2px); }
+    .btn:hover { transform: translateY(-3px); }
     .btn-primary {
-      background: var(--accent);
-      color: #fff;
-      box-shadow: 0 4px 24px rgba(88,101,242,.35);
+      background: var(--accent); color: #fff; border-color: var(--accent);
+      box-shadow: 0 4px 20px rgba(88,101,242,.35);
     }
-    .btn-primary:hover { box-shadow: 0 8px 32px rgba(88,101,242,.5); }
+    .btn-primary:hover { box-shadow: 0 8px 36px rgba(88,101,242,.55); }
     .btn-ghost {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid var(--border);
+      background: transparent; color: var(--text);
+      border-color: var(--border);
     }
-    .btn-ghost:hover { border-color: var(--accent); color: var(--accent2); }
+    .btn-ghost:hover { border-color: var(--accent2); color: var(--accent2); }
+
+    /* ripple */
+    .btn .ripple {
+      position: absolute; border-radius: 50%;
+      background: rgba(255,255,255,.18);
+      transform: scale(0);
+      animation: rippleAnim .55s linear;
+      pointer-events: none;
+    }
+    @keyframes rippleAnim { to{transform:scale(4);opacity:0} }
+
+    /* scroll hint */
+    .scroll-hint {
+      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      color: var(--muted); font-size: .72rem; letter-spacing: .08em;
+      text-transform: uppercase;
+      animation: fadeUp .8s .9s ease both;
+    }
+    .scroll-hint .arrow {
+      width: 18px; height: 18px;
+      border-right: 1.5px solid var(--muted);
+      border-bottom: 1.5px solid var(--muted);
+      transform: rotate(45deg);
+      animation: arrowBounce 1.5s ease-in-out infinite;
+    }
+    @keyframes arrowBounce {
+      0%,100%{transform:rotate(45deg) translate(0,0);opacity:.4}
+      50%    {transform:rotate(45deg) translate(3px,3px);opacity:1}
+    }
 
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)}
     }
 
-    /* ── STATS BAR ── */
+    /* ── STATS ── */
     .stats-bar {
       position: relative; z-index: 1;
-      display: flex; justify-content: center; gap: 0;
+      display: flex; justify-content: center;
       flex-wrap: wrap;
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
@@ -178,39 +251,40 @@
       display: flex; flex-direction: column; align-items: center;
       padding: 28px 20px;
       border-right: 1px solid var(--border);
+      transition: background .25s;
     }
     .stat-item:last-child { border-right: none; }
+    .stat-item:hover { background: rgba(88,101,242,.04); }
     .stat-num {
-      font-family: 'Syne', 'Segoe UI', system-ui, sans-serif;
-      font-weight: 700;
-      font-size: 2rem;
-      color: var(--text);
+      font-family: 'Syne','Segoe UI',system-ui,sans-serif;
+      font-weight: 700; font-size: 2rem; color: var(--text);
+      transition: color .3s, text-shadow .3s;
+    }
+    .stat-item:hover .stat-num {
+      color: var(--accent2);
+      text-shadow: 0 0 14px rgba(121,131,245,.5);
     }
     .stat-label { font-size: .8rem; color: var(--muted); margin-top: 2px; }
 
-    /* ── FEATURES ── */
+    /* ── SECTION ── */
     section {
       position: relative; z-index: 1;
       padding: 100px 5%;
-      max-width: 1200px;
-      margin: 0 auto;
+      max-width: 1200px; margin: 0 auto;
     }
     .section-label {
-      font-size: .8rem;
-      text-transform: uppercase;
-      letter-spacing: .15em;
-      color: var(--accent2);
-      font-weight: 500;
-      margin-bottom: 12px;
+      font-size: .78rem; text-transform: uppercase;
+      letter-spacing: .16em; color: var(--accent2);
+      font-weight: 500; margin-bottom: 12px;
     }
     .section-title {
-      font-family: 'Syne', 'Segoe UI', system-ui, sans-serif;
+      font-family: 'Syne','Segoe UI',system-ui,sans-serif;
       font-weight: 700;
       font-size: clamp(1.8rem, 3vw, 2.6rem);
-      letter-spacing: -.02em;
-      margin-bottom: 60px;
+      letter-spacing: -.02em; margin-bottom: 60px;
     }
 
+    /* ── FEATURES ── */
     .features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -221,64 +295,66 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 28px 26px;
-      transition: border-color .2s, transform .2s;
+      transition: border-color .3s, transform .3s, box-shadow .3s;
+      position: relative; overflow: hidden;
     }
-    .feature-card:hover {
-      border-color: rgba(88,101,242,.4);
-      transform: translateY(-3px);
+    /* spotlight effect follows mouse */
+    .feature-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(88,101,242,.09) 0%, transparent 65%);
+      opacity: 0; transition: opacity .3s; pointer-events: none;
     }
+    .feature-card:hover { border-color: rgba(88,101,242,.5); transform: translateY(-5px); box-shadow: 0 16px 48px rgba(88,101,242,.11); }
+    .feature-card:hover::before { opacity: 1; }
+
     .feature-icon {
-      font-size: 1.8rem;
-      margin-bottom: 16px;
-      display: block;
+      font-size: 1.9rem; margin-bottom: 16px; display: block;
+      transition: transform .4s cubic-bezier(.36,.07,.19,.97);
     }
+    .feature-card:hover .feature-icon { transform: translateY(-6px) rotate(-8deg) scale(1.15); }
+
     .feature-card h3 {
-      font-family: 'Syne', 'Segoe UI', system-ui, sans-serif;
-      font-weight: 600;
-      font-size: 1.05rem;
-      margin-bottom: 8px;
+      font-family: 'Syne','Segoe UI',system-ui,sans-serif;
+      font-weight: 600; font-size: 1.05rem; margin-bottom: 8px;
     }
-    .feature-card p {
-      font-size: .9rem;
-      color: var(--muted);
-      line-height: 1.6;
-    }
+    .feature-card p { font-size: .9rem; color: var(--muted); line-height: 1.6; }
 
     /* ── LEGAL ── */
     .legal-section {
-      max-width: 1200px;
-      margin: 0 auto;
+      max-width: 1200px; margin: 0 auto;
       padding: 0 5% 100px;
       position: relative; z-index: 1;
     }
-    .legal-cards {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
+    .legal-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .legal-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 36px;
-      transition: border-color .2s;
+      transition: border-color .3s, box-shadow .3s, transform .3s;
+      position: relative; overflow: hidden;
     }
-    .legal-card:hover { border-color: rgba(88,101,242,.4); }
+    .legal-card::after {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2), transparent);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .4s cubic-bezier(.16,1,.3,1);
+    }
+    .legal-card:hover { border-color: rgba(88,101,242,.4); box-shadow: 0 12px 48px rgba(88,101,242,.1); transform: translateY(-4px); }
+    .legal-card:hover::after { transform: scaleX(1); }
+
     .legal-card h3 {
-      font-family: 'Syne', 'Segoe UI', system-ui, sans-serif;
-      font-weight: 700;
-      font-size: 1.3rem;
-      margin-bottom: 10px;
+      font-family: 'Syne','Segoe UI',system-ui,sans-serif;
+      font-weight: 700; font-size: 1.3rem; margin-bottom: 10px;
     }
     .legal-card p { font-size: .9rem; color: var(--muted); margin-bottom: 24px; }
     .legal-card .tag {
       display: inline-block;
-      background: rgba(88,101,242,.12);
-      color: var(--accent2);
-      border-radius: 6px;
-      padding: 3px 10px;
-      font-size: .75rem;
-      margin-bottom: 16px;
+      background: rgba(88,101,242,.12); color: var(--accent2);
+      border-radius: 6px; padding: 3px 10px;
+      font-size: .75rem; margin-bottom: 16px;
     }
 
     /* ── FOOTER ── */
@@ -290,66 +366,33 @@
       flex-wrap: wrap; gap: 16px;
     }
     footer .logo {
-      font-family: 'Syne', 'Segoe UI', system-ui, sans-serif;
-      font-weight: 700;
-      font-size: 1rem;
+      font-family: 'Syne','Segoe UI',system-ui,sans-serif;
+      font-weight: 700; font-size: 1rem;
     }
     footer p { font-size: .82rem; color: var(--muted); }
 
-    /* ── MODAL ── */
-    .modal-overlay {
-      display: none;
-      position: fixed; inset: 0;
-      z-index: 200;
-      background: rgba(0,0,0,.7);
-      backdrop-filter: blur(6px);
-      align-items: center; justify-content: center;
-      padding: 20px;
-    }
-    .modal-overlay.open { display: flex; }
-    .modal {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      width: 100%; max-width: 680px;
-      max-height: 80vh;
-      display: flex; flex-direction: column;
-      animation: modalIn .2s ease;
-    }
-    @keyframes modalIn { from { opacity:0; transform:scale(.96); } to { opacity:1; transform:scale(1); } }
-    .modal-header {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 24px 28px;
-      border-bottom: 1px solid var(--border);
-    }
-    .modal-header h2 {
-      font-family: 'Syne', 'Segoe UI', system-ui, sans-serif;
+    /* ── GLOW BOLD ── */
+    b.glow-blue, b.glow-gold, b.glow-red, b.glow-green {
       font-weight: 700;
-      font-size: 1.2rem;
+      position: relative; display: inline;
     }
-    .modal-close {
-      background: none; border: none;
-      color: var(--muted); font-size: 1.4rem;
-      cursor: pointer; line-height: 1;
-      transition: color .2s;
+    b.glow-blue  { color:#7983f5; text-shadow:0 0 8px rgba(121,131,245,.8),0 0 22px rgba(121,131,245,.4); }
+    b.glow-gold  { color:#f0c060; text-shadow:0 0 8px rgba(240,192,96,.8),0 0 22px rgba(240,192,96,.4); }
+    b.glow-red   { color:#ff6b6b; text-shadow:0 0 8px rgba(255,107,107,.8),0 0 22px rgba(255,107,107,.4); }
+    b.glow-green { color:#5efa8a; text-shadow:0 0 8px rgba(94,250,138,.8),0 0 22px rgba(94,250,138,.4); }
+
+    /* shimmer sweep */
+    b.glow-blue::after, b.glow-gold::after, b.glow-red::after, b.glow-green::after {
+      content: '';
+      position: absolute; top: 0; left: -120%; width: 55%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.3), transparent);
+      animation: shimmer 3.8s ease-in-out infinite;
+      pointer-events: none;
     }
-    .modal-close:hover { color: var(--text); }
-    .modal-body {
-      padding: 24px 28px;
-      overflow-y: auto;
-      font-size: .9rem;
-      color: var(--muted);
-      line-height: 1.8;
-    }
-    .modal-body h3 {
-      font-family: 'Syne', 'Segoe UI', system-ui, sans-serif;
-      color: var(--text);
-      font-size: 1rem;
-      margin: 20px 0 6px;
-    }
-    .modal-body h3:first-child { margin-top: 0; }
-    .modal-body ul { padding-left: 18px; }
-    .modal-body li { margin-bottom: 4px; }
+    b.glow-gold::after  { animation-delay: .5s; }
+    b.glow-red::after   { animation-delay: 1s; }
+    b.glow-green::after { animation-delay: 1.5s; }
+    @keyframes shimmer { 0%{left:-120%} 45%{left:160%} 100%{left:160%} }
 
     @media (max-width: 640px) {
       .legal-cards { grid-template-columns: 1fr; }
@@ -360,7 +403,10 @@
 </head>
 <body>
 
+<div id="cursor-glow"></div>
 <div class="blob"></div>
+<div class="blob2"></div>
+<div id="particles"></div>
 
 <!-- NAV -->
 <nav>
@@ -376,29 +422,33 @@
 <!-- HERO -->
 <div class="hero">
   <div class="badge">Discord Bot &nbsp;·&nbsp; Multi-purpose</div>
-  <h1>Your server,<br><span class="accent">smarter</span> &amp; <span class="gold">more fun</span></h1>
+  <h1>Your server,<br><span class="accent"><b class="glow-blue">smarter</b></span> &amp; <span class="gold"><b class="glow-gold">more fun</b></span></h1>
   <p class="hero-sub">Yochiyo Hub brings moderation, engagement, and automation tools to your Discord community — all in one bot.</p>
   <div class="cta-group">
     <a href="#" class="btn btn-primary">🤖 Add to Server</a>
     <a href="#features" class="btn btn-ghost">Explore Features</a>
   </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="arrow"></div>
+  </div>
 </div>
 
 <!-- STATS -->
 <div class="stats-bar">
-  <div class="stat-item">
+  <div class="stat-item reveal reveal-d1">
     <span class="stat-num">10+</span>
     <span class="stat-label">Commands</span>
   </div>
-  <div class="stat-item">
+  <div class="stat-item reveal reveal-d2">
     <span class="stat-num">Free</span>
     <span class="stat-label">No premium needed</span>
   </div>
-  <div class="stat-item">
+  <div class="stat-item reveal reveal-d3">
     <span class="stat-num">24/7</span>
     <span class="stat-label">Always online</span>
   </div>
-  <div class="stat-item">
+  <div class="stat-item reveal reveal-d4">
     <span class="stat-num">Discord.js</span>
     <span class="stat-label">Powered by</span>
   </div>
@@ -406,50 +456,50 @@
 
 <!-- FEATURES -->
 <section id="features">
-  <div class="section-label">What it does</div>
-  <div class="section-title">Everything your server needs</div>
+  <div class="section-label reveal">What it does</div>
+  <div class="section-title reveal reveal-d1">Everything your server needs</div>
   <div class="features-grid">
-    <div class="feature-card">
+    <div class="feature-card reveal reveal-d1">
       <span class="feature-icon">🛡️</span>
       <h3>Anti-Link</h3>
       <p>Automatically detect and remove unwanted links posted by members, keeping your server clean and safe.</p>
     </div>
-    <div class="feature-card">
+    <div class="feature-card reveal reveal-d2">
       <span class="feature-icon">💬</span>
       <h3>Auto Responder</h3>
       <p>Set custom keyword triggers and let the bot reply automatically — perfect for FAQs and greetings.</p>
     </div>
-    <div class="feature-card">
+    <div class="feature-card reveal reveal-d3">
       <span class="feature-icon">🎭</span>
       <h3>Auto Role</h3>
       <p>Assign roles to new members automatically when they join, or based on other conditions you configure.</p>
     </div>
-    <div class="feature-card">
+    <div class="feature-card reveal reveal-d4">
       <span class="feature-icon">🎉</span>
       <h3>Giveaways</h3>
       <p>Host giveaways with ease. Set duration, prize, and number of winners — the bot handles the rest.</p>
     </div>
-    <div class="feature-card">
+    <div class="feature-card reveal reveal-d5">
       <span class="feature-icon">🎫</span>
       <h3>Ticket System</h3>
       <p>Let members open support tickets through interactive panels. Organized, private, and easy to manage.</p>
     </div>
-    <div class="feature-card">
+    <div class="feature-card reveal reveal-d6">
       <span class="feature-icon">🔥</span>
       <h3>Streak Tracking</h3>
       <p>Reward active members by tracking daily message streaks and building a culture of engagement.</p>
     </div>
-    <div class="feature-card">
+    <div class="feature-card reveal reveal-d7">
       <span class="feature-icon">🔒</span>
       <h3>Channel Lock</h3>
       <p>Lock and unlock channels instantly during emergencies or maintenance with a single command.</p>
     </div>
-    <div class="feature-card">
+    <div class="feature-card reveal reveal-d8">
       <span class="feature-icon">😴</span>
       <h3>AFK Status</h3>
       <p>Members can set an AFK message so others know they're away. Automatically cleared when they return.</p>
     </div>
-    <div class="feature-card">
+    <div class="feature-card reveal reveal-d9">
       <span class="feature-icon">✨</span>
       <h3>Fun Commands</h3>
       <p>Keep things lively with avatar lookup, gay rate, Minecraft server status, and more playful commands.</p>
@@ -459,127 +509,89 @@
 
 <!-- LEGAL -->
 <div class="legal-section" id="legal">
-  <div class="section-label">Transparency</div>
-  <div class="section-title" style="margin-bottom:24px;">Legal Documents</div>
+  <div class="section-label reveal">Transparency</div>
+  <div class="section-title reveal reveal-d1" style="margin-bottom:24px;">Legal Documents</div>
   <div class="legal-cards">
-    <div class="legal-card">
+    <div class="legal-card reveal reveal-d2">
       <span class="tag">Updated March 15, 2026</span>
       <h3>🔒 Privacy Policy</h3>
-      <p>Learn what data Yochiyo Hub collects, how it's used, and how you can request deletion.</p>
-      <button class="btn btn-ghost" onclick="openModal('privacy')" style="font-size:.85rem;padding:10px 20px;">Read Privacy Policy</button>
+      <p>Learn what <b class="glow-blue">data</b> Yochiyo Hub collects, how it's used, and how you can request <b class="glow-red">deletion</b>.</p>
+      <a href="https://konnichiwa222.github.io/Yachiyo-Bot/privacy" target="_blank" class="btn btn-ghost" style="font-size:.85rem;padding:10px 20px;display:inline-flex;">Read Privacy Policy ↗</a>
     </div>
-    <div class="legal-card">
+    <div class="legal-card reveal reveal-d3">
       <span class="tag">Updated March 15, 2026</span>
       <h3>📄 Terms of Service</h3>
-      <p>Understand the rules for using Yochiyo Hub, your responsibilities, and our limitations.</p>
-      <button class="btn btn-ghost" onclick="openModal('tos')" style="font-size:.85rem;padding:10px 20px;">Read Terms of Service</button>
+      <p>Understand the <b class="glow-blue">rules</b> for using Yochiyo Hub, your <b class="glow-gold">responsibilities</b>, and our limitations.</p>
+      <a href="https://konnichiwa222.github.io/Yachiyo-Bot/terms" target="_blank" class="btn btn-ghost" style="font-size:.85rem;padding:10px 20px;display:inline-flex;">Read Terms of Service ↗</a>
     </div>
   </div>
 </div>
 
 <!-- FOOTER -->
-<footer>
+<footer class="reveal">
   <div class="logo">🦊 Yochiyo Hub</div>
   <p>© 2026 Yochiyo — All Rights Reserved</p>
 </footer>
 
-<!-- PRIVACY MODAL -->
-<div class="modal-overlay" id="modal-privacy">
-  <div class="modal">
-    <div class="modal-header">
-      <h2>🔒 Privacy Policy</h2>
-      <button class="modal-close" onclick="closeModal('privacy')">✕</button>
-    </div>
-    <div class="modal-body">
-      <p><strong>Last Updated:</strong> March 15, 2026</p>
-      <h3>1. Introduction</h3>
-      <p>Yochiyo Hub only collects data necessary for its features to function. By using the bot, you agree to this policy.</p>
-      <h3>2. Data We Collect</h3>
-      <ul>
-        <li><strong>Guild / Channel / Role IDs</strong> — for server configuration (prefixes, anti-link, autorole).</li>
-        <li><strong>User IDs</strong> — for tickets, giveaways, streaks, and AFK status.</li>
-        <li><strong>Message content</strong> — scanned in real-time for anti-link and autoresponder; never stored permanently.</li>
-      </ul>
-      <h3>3. Data We Do NOT Collect</h3>
-      <ul>
-        <li>Passwords or credentials</li>
-        <li>Personal information (real names, emails, addresses)</li>
-        <li>Private / Direct Messages</li>
-        <li>Voice data</li>
-      </ul>
-      <h3>4. How We Use Your Data</h3>
-      <p>Data is used exclusively to operate bot features. We do not use your data for advertising, analytics, or any third-party purpose.</p>
-      <h3>5. Data Storage &amp; Sharing</h3>
-      <p>Data is stored locally in JSON files on our server. We do not share data with any third party. The only external service used is Discord's official API.</p>
-      <h3>6. Data Deletion</h3>
-      <p>Server admins can clear stored data at any time. You may also contact the Yochiyo team via Discord to request full deletion.</p>
-      <h3>7. Children's Privacy</h3>
-      <p>We do not knowingly collect data from users under 13 years of age, in line with Discord's own requirements.</p>
-      <h3>8. Contact</h3>
-      <p>For privacy concerns, contact the Yochiyo team directly via Discord.</p>
-    </div>
-  </div>
-</div>
-
-<!-- TOS MODAL -->
-<div class="modal-overlay" id="modal-tos">
-  <div class="modal">
-    <div class="modal-header">
-      <h2>📄 Terms of Service</h2>
-      <button class="modal-close" onclick="closeModal('tos')">✕</button>
-    </div>
-    <div class="modal-body">
-      <p><strong>Last Updated:</strong> March 15, 2026</p>
-      <h3>1. Agreement</h3>
-      <p>By adding or using Yochiyo Hub, you agree to these Terms. If you do not agree, please remove the bot from your server.</p>
-      <h3>2. Eligibility</h3>
-      <p>You must be at least 13 years old and comply with Discord's Terms of Service at all times.</p>
-      <h3>3. Permitted Use</h3>
-      <ul>
-        <li>Manage and moderate your Discord server.</li>
-        <li>Engage your community through giveaways, streaks, and commands.</li>
-        <li>Automate server tasks such as role assignment and filtering.</li>
-      </ul>
-      <h3>4. Prohibited Use</h3>
-      <ul>
-        <li>Harassment, threats, or harm to other users.</li>
-        <li>Spamming or deliberately abusing the bot.</li>
-        <li>Using the bot for illegal activities (scamming, phishing, fraud).</li>
-        <li>Attempting to exploit or reverse-engineer the bot.</li>
-        <li>Distributing hateful, discriminatory, or illegal content.</li>
-      </ul>
-      <h3>5. Server Owner Responsibilities</h3>
-      <p>Server owners are responsible for how the bot is configured and used in their server, and must ensure compliance with Discord's guidelines.</p>
-      <h3>6. Availability</h3>
-      <p>We strive to keep the bot online, but do not guarantee 100% uptime. We may take the bot offline for maintenance without prior notice.</p>
-      <h3>7. Disclaimer &amp; Limitation of Liability</h3>
-      <p>Yochiyo Hub is provided "as is." We are not liable for any damages arising from use of the bot. Your use is entirely at your own risk.</p>
-      <h3>8. Termination</h3>
-      <p>We reserve the right to block any user or server from using the bot at any time for violations of these Terms.</p>
-      <h3>9. Contact</h3>
-      <p>For questions about these Terms, contact the Yochiyo team directly via Discord.</p>
-    </div>
-  </div>
-</div>
-
 <script>
-  function openModal(type) {
-    document.getElementById('modal-' + type).classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeModal(type) {
-    document.getElementById('modal-' + type).classList.remove('open');
-    document.body.style.overflow = '';
-  }
-  // close on overlay click
-  document.querySelectorAll('.modal-overlay').forEach(el => {
-    el.addEventListener('click', e => {
-      if (e.target === el) {
-        el.classList.remove('open');
-        document.body.style.overflow = '';
-      }
+  /* ── SCROLL REVEAL ── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* ── CURSOR GLOW ── */
+  const glow = document.getElementById('cursor-glow');
+  let cx = window.innerWidth/2, cy = window.innerHeight/2;
+  document.addEventListener('mousemove', e => { cx = e.clientX; cy = e.clientY; });
+  (function tick() {
+    glow.style.left = cx + 'px';
+    glow.style.top  = cy + 'px';
+    requestAnimationFrame(tick);
+  })();
+
+  /* ── CARD SPOTLIGHT (mouse tracking) ── */
+  document.querySelectorAll('.feature-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width  * 100).toFixed(1) + '%';
+      const y = ((e.clientY - r.top)  / r.height * 100).toFixed(1) + '%';
+      card.style.setProperty('--mx', x);
+      card.style.setProperty('--my', y);
     });
   });
+
+  /* ── BTN RIPPLE ── */
+  document.querySelectorAll('.btn').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const r = btn.getBoundingClientRect();
+      const span = document.createElement('span');
+      const size = Math.max(r.width, r.height);
+      span.className = 'ripple';
+      span.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-r.left-size/2}px;top:${e.clientY-r.top-size/2}px`;
+      btn.appendChild(span);
+      setTimeout(() => span.remove(), 600);
+    });
+  });
+
+  /* ── FLOATING PARTICLES ── */
+  const container = document.getElementById('particles');
+  const colors = ['rgba(88,101,242,.55)', 'rgba(121,131,245,.4)', 'rgba(240,192,96,.35)', 'rgba(94,250,138,.3)', 'rgba(255,107,107,.3)'];
+  for (let i = 0; i < 28; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 4 + 1.5;
+    p.style.cssText = [
+      `width:${size}px`, `height:${size}px`,
+      `left:${Math.random()*100}%`,
+      `bottom:${-10 + Math.random()*20}%`,
+      `background:${colors[Math.floor(Math.random()*colors.length)]}`,
+      `animation-duration:${8 + Math.random()*16}s`,
+      `animation-delay:${Math.random()*12}s`,
+      `filter:blur(${size > 3 ? 1 : 0}px)`
+    ].join(';');
+    container.appendChild(p);
+  }
 </script>
 </body>
 </html>
