@@ -161,7 +161,7 @@
 
     h1 {
       font-family:'Syne','Segoe UI',system-ui,sans-serif; font-weight:800;
-      font-size:clamp(2.6rem,6vw,5rem); line-height:1.1; letter-spacing:-.02em;
+      font-size:clamp(2.2rem,5.5vw,5rem); line-height:1.1; letter-spacing:-.02em;
       position: relative;
     }
 
@@ -294,9 +294,10 @@
 
     /* ── TYPEWRITER ── */
     .hero-sub {
-      margin-top:20px; max-width:520px; font-size:1.05rem;
-      animation:fadeUp .7s .2s ease both; min-height:2.2em;
+      margin-top:20px; max-width:min(520px, 90vw); font-size:clamp(.9rem,2vw,1.05rem);
+      animation:fadeUp .7s .2s ease both; min-height:2.2em; color:var(--muted);
     }
+    #tw-text { word-break:break-word; }
     .tw-cursor {
       display:inline-block; width:2px; height:1em;
       background:var(--accent2); vertical-align:text-bottom; margin-left:2px;
@@ -660,10 +661,13 @@
 
     /* ── LOFI PLAYER ── */
     #lofi-wrap {
-      position:fixed; bottom:24px; left:24px; z-index:500;
+      position:fixed; bottom:16px; left:16px; z-index:500;
+    }
+    @media(max-width:400px){
+      #lofi-card{ width:calc(100vw - 32px); }
     }
     #lofi-card {
-      width:272px;
+      width:min(272px, calc(100vw - 32px));
       background:rgba(12,13,18,.95);
       backdrop-filter:blur(24px);
       border:1px solid rgba(255,255,255,.09);
