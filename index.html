@@ -650,11 +650,153 @@
     @keyframes glowPulseRed   { 0%,100%{text-shadow:0 0 8px rgba(255,107,107,.8),0 0 22px rgba(255,107,107,.4)} 50%{text-shadow:0 0 14px rgba(255,107,107,1),0 0 36px rgba(255,107,107,.7),0 0 60px rgba(255,107,107,.3)} }
     @keyframes glowPulseGreen { 0%,100%{text-shadow:0 0 8px rgba(94,250,138,.8),0 0 22px rgba(94,250,138,.4)}  50%{text-shadow:0 0 14px rgba(94,250,138,1),0 0 36px rgba(94,250,138,.7),0 0 60px rgba(94,250,138,.3)} }
 
+
+
     @media(max-width:640px){
       .legal-cards{grid-template-columns:1fr}
       .nav-links{display:none}
       .stat-item{min-width:50%}
     }
+
+    /* ── LOFI PLAYER ── */
+    #lofi-wrap {
+      position:fixed; bottom:24px; left:24px; z-index:500;
+    }
+    #lofi-card {
+      width:272px;
+      background:rgba(12,13,18,.95);
+      backdrop-filter:blur(24px);
+      border:1px solid rgba(255,255,255,.09);
+      border-radius:18px;
+      padding:16px 16px 12px;
+      box-shadow:0 12px 48px rgba(0,0,0,.6);
+      animation:fadeUp .6s 1.2s ease both;
+    }
+    #lofi-card.hidden { display:none; }
+
+    /* toggle btn */
+    #lofi-fab {
+      width:48px; height:48px; border-radius:14px;
+      background:linear-gradient(135deg,#5865F2,#7983f5);
+      border:1px solid rgba(121,131,245,.4);
+      cursor:pointer; display:none; align-items:center; justify-content:center;
+      box-shadow:0 4px 20px rgba(88,101,242,.5);
+      transition:transform .2s;
+      animation:fadeUp .6s 1.2s ease both;
+    }
+    #lofi-fab:hover { transform:scale(1.08); }
+    #lofi-fab svg { color:#fff; }
+
+    /* header */
+    .lf-header {
+      display:flex; align-items:center; gap:10px; margin-bottom:12px;
+    }
+    .lf-disc {
+      width:38px; height:38px; border-radius:50%; flex-shrink:0;
+      background:linear-gradient(135deg,#5865F2,#a8b4ff);
+      display:flex; align-items:center; justify-content:center;
+      position:relative;
+    }
+    .lf-disc::after {
+      content:''; position:absolute; width:11px; height:11px;
+      border-radius:50%; background:#0c0d10;
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .lf-disc.spin { animation:discSpin 3s linear infinite; }
+    @keyframes discSpin { to{ transform:rotate(360deg); } }
+    .lf-info { flex:1; min-width:0; }
+    .lf-label { font-size:.62rem; color:var(--muted); letter-spacing:.08em; text-transform:uppercase; margin-bottom:2px; }
+    .lf-name  { font-size:.82rem; font-weight:700; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .lf-artist{ font-size:.7rem; color:var(--muted); }
+    #lofi-min-btn {
+      background:none; border:none; color:var(--muted); cursor:pointer;
+      padding:4px; border-radius:6px; flex-shrink:0;
+      transition:color .15s, background .15s; line-height:1;
+    }
+    #lofi-min-btn:hover { color:var(--text); background:rgba(255,255,255,.07); }
+
+    /* progress */
+    .lf-progress {
+      height:3px; background:rgba(255,255,255,.08); border-radius:2px;
+      margin-bottom:10px; cursor:pointer; overflow:hidden;
+    }
+    #lf-prog-fill {
+      height:100%; width:0%; border-radius:2px;
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      transition:width .4s linear;
+    }
+
+    /* controls */
+    .lf-controls {
+      display:flex; align-items:center; gap:4px;
+    }
+    .lf-btn {
+      background:none; border:none; color:var(--muted); cursor:pointer;
+      padding:6px; border-radius:8px; display:flex; align-items:center;
+      transition:color .15s, background .15s;
+    }
+    .lf-btn:hover { color:var(--text); background:rgba(255,255,255,.07); }
+    #lf-play-btn {
+      color:var(--text); background:rgba(88,101,242,.18);
+      border-radius:10px; padding:7px;
+    }
+    #lf-play-btn:hover { background:rgba(88,101,242,.3); }
+    .lf-vol {
+      display:flex; align-items:center; gap:5px; margin-left:auto;
+    }
+    #lf-vol-slider {
+      -webkit-appearance:none; width:60px; height:3px;
+      background:rgba(255,255,255,.12); border-radius:2px; outline:none; cursor:pointer;
+    }
+    #lf-vol-slider::-webkit-slider-thumb {
+      -webkit-appearance:none; width:11px; height:11px; border-radius:50%;
+      background:var(--accent2); cursor:pointer;
+    }
+    #lf-list-btn {
+      font-size:.68rem; color:var(--muted); background:none; border:none;
+      cursor:pointer; padding:5px 7px; border-radius:7px;
+      display:flex; align-items:center; gap:4px;
+      transition:color .15s, background .15s;
+    }
+    #lf-list-btn:hover { color:var(--accent2); background:rgba(121,131,245,.1); }
+    #lf-list-btn.on { color:var(--accent2); }
+
+    /* playlist */
+    #lf-playlist {
+      display:none; margin-top:10px;
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:10px; overflow-y:auto; max-height:186px;
+    }
+    #lf-playlist::-webkit-scrollbar { width:3px; }
+    #lf-playlist::-webkit-scrollbar-thumb { background:rgba(121,131,245,.3); border-radius:2px; }
+    .lf-row {
+      display:flex; align-items:center; gap:8px; padding:8px 12px;
+      cursor:pointer; border-bottom:1px solid rgba(255,255,255,.04);
+      transition:background .12s;
+    }
+    .lf-row:last-child { border-bottom:none; }
+    .lf-row:hover { background:rgba(255,255,255,.05); }
+    .lf-row.active { background:rgba(88,101,242,.12); }
+    .lf-row .lf-dot {
+      width:6px; height:6px; border-radius:50%;
+      background:rgba(255,255,255,.15); flex-shrink:0; transition:background .2s;
+    }
+    .lf-row.active .lf-dot {
+      background:var(--accent2); box-shadow:0 0 6px rgba(121,131,245,.7);
+      animation:dotPulse 1.2s ease-in-out infinite;
+    }
+    @keyframes dotPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.6)} }
+    .lf-row .lf-rnum { font-size:.65rem; color:var(--muted); width:14px; text-align:center; flex-shrink:0; }
+    .lf-row.active .lf-rnum { visibility:hidden; }
+    .lf-row .lf-rinfo { flex:1; min-width:0; }
+    .lf-row .lf-rname { font-size:.78rem; font-weight:600; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .lf-row.active .lf-rname { color:var(--accent2); }
+    .lf-row .lf-rartist { font-size:.66rem; color:var(--muted); }
+    .lf-row .lf-yt {
+      color:var(--muted); opacity:.4; flex-shrink:0;
+      text-decoration:none; display:flex; transition:opacity .15s, color .15s;
+    }
+    .lf-row:hover .lf-yt { opacity:1; color:#ff4040; }
   </style>
 </head>
 <body>
@@ -742,7 +884,7 @@
 <!-- HERO -->
 <div class="hero">
   <div class="hero-glow-ring"></div>
-  <div class="badge">Discord Bot &nbsp;·&nbsp; Multi-purpose</div>
+  <div class="badge">Discord Bot &nbsp;·&nbsp; Multi-purpose &nbsp;<span class="beta-tag">BETA</span></div>
   <h1>
     <span class="h1-word" style="--wi:0">Your</span>
     <span class="h1-word" style="--wi:1">server,</span><br>
@@ -1123,6 +1265,212 @@ document.querySelectorAll('.mag-btn').forEach(btn => {
     container.appendChild(el);
   }
 })();
+
+
+</script>
+
+
+
+<!-- ── LOFI PLAYER ── -->
+<div id="lofi-wrap">
+  <!-- Minimized FAB -->
+  <button id="lofi-fab" title="Open music player">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/>
+    </svg>
+  </button>
+
+  <!-- Player card -->
+  <div id="lofi-card">
+    <!-- Header -->
+    <div class="lf-header">
+      <div class="lf-disc" id="lf-disc"></div>
+      <div class="lf-info">
+        <div class="lf-label">Now Playing</div>
+        <div class="lf-name" id="lf-name">Select a track</div>
+        <div class="lf-artist" id="lf-artist">—</div>
+      </div>
+      <button id="lofi-min-btn" title="Minimize">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+      </button>
+    </div>
+
+    <!-- Progress -->
+    <div class="lf-progress" id="lf-progress">
+      <div id="lf-prog-fill"></div>
+    </div>
+
+    <!-- Controls -->
+    <div class="lf-controls">
+      <button class="lf-btn" id="lf-prev">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg>
+      </button>
+      <button class="lf-btn" id="lf-play-btn">
+        <svg id="lf-play-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      </button>
+      <button class="lf-btn" id="lf-next">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="4" x2="19" y2="20"/></svg>
+      </button>
+      <div class="lf-vol">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+        <input type="range" id="lf-vol-slider" min="0" max="100" value="60">
+      </div>
+      <button id="lf-list-btn">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        List
+      </button>
+    </div>
+
+    <!-- Playlist -->
+    <div id="lf-playlist"></div>
+
+    <!-- Hidden YT iframe -->
+    <div style="position:absolute;width:0;height:0;overflow:hidden">
+      <iframe id="lf-iframe" width="1" height="1" frameborder="0"
+        allow="autoplay;encrypted-media" style="opacity:0"></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const TRACKS = [
+    { name:'Lofi Hip Hop Radio',  artist:'Lofi Girl',      id:'jfKfPfyJRdk', color:'linear-gradient(135deg,#5865F2,#a8b4ff)' },
+    { name:'Chillhop Essentials', artist:'Chillhop Music', id:'5yx6BWlEVcY', color:'linear-gradient(135deg,#f0c060,#ff6b6b)' },
+    { name:'Late Night Coding',   artist:'Lofi Geek',      id:'lTRiuFIWV54', color:'linear-gradient(135deg,#5efa8a,#64dcff)' },
+    { name:'Coffee Shop Lofi',    artist:'Dreamy',         id:'kgx4WGK0oNU', color:'linear-gradient(135deg,#c4a8ff,#5865F2)' },
+    { name:'Beats to Relax',      artist:'ChilledCow',     id:'DWcJFNfaw9c', color:'linear-gradient(135deg,#ff6b6b,#f0c060)' },
+  ];
+
+  let cur = 0, isPlaying = false;
+  let progTimer = null, progVal = 0;
+
+  // Elements
+  const card     = document.getElementById('lofi-card');
+  const fab      = document.getElementById('lofi-fab');
+  const minBtn   = document.getElementById('lofi-min-btn');
+  const disc     = document.getElementById('lf-disc');
+  const nameEl   = document.getElementById('lf-name');
+  const artistEl = document.getElementById('lf-artist');
+  const playBtn  = document.getElementById('lf-play-btn');
+  const playIcon = document.getElementById('lf-play-icon');
+  const prevBtn  = document.getElementById('lf-prev');
+  const nextBtn  = document.getElementById('lf-next');
+  const volSlider= document.getElementById('lf-vol-slider');
+  const listBtn  = document.getElementById('lf-list-btn');
+  const playlist = document.getElementById('lf-playlist');
+  const iframe   = document.getElementById('lf-iframe');
+  const progFill = document.getElementById('lf-prog-fill');
+
+  // ── Minimize / restore ──
+  minBtn.addEventListener('click', () => {
+    card.classList.add('hidden');
+    fab.style.display = 'flex';
+  });
+  fab.addEventListener('click', () => {
+    fab.style.display = 'none';
+    card.classList.remove('hidden');
+  });
+
+  // ── Track UI ──
+  function updateUI() {
+    const t = TRACKS[cur];
+    nameEl.textContent   = t.name;
+    artistEl.textContent = t.artist;
+    disc.style.background = t.color;
+    document.querySelectorAll('.lf-row').forEach((r,i) => r.classList.toggle('active', i === cur));
+  }
+
+  // ── Progress fake loop ──
+  function startProg() {
+    stopProg(); progVal = 0;
+    progTimer = setInterval(() => {
+      progVal = (progVal + 0.05) % 100;
+      progFill.style.width = progVal + '%';
+    }, 250);
+  }
+  function stopProg() {
+    clearInterval(progTimer);
+    progFill.style.width = '0%';
+    progVal = 0;
+  }
+
+  // ── Play state ──
+  function setPlay(val) {
+    isPlaying = val;
+    if(val) {
+      playIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+      disc.classList.add('spin');
+      startProg();
+    } else {
+      playIcon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"/>';
+      disc.classList.remove('spin');
+      stopProg();
+    }
+  }
+
+  // ── Load & play track ──
+  function play(idx) {
+    cur = (idx + TRACKS.length) % TRACKS.length;
+    updateUI();
+    iframe.src = `https://www.youtube.com/embed/${TRACKS[cur].id}?autoplay=1&controls=0&loop=1&playlist=${TRACKS[cur].id}&rel=0&mute=0&enablejsapi=1`;
+    setPlay(true);
+  }
+
+  // ── Controls ──
+  playBtn.addEventListener('click', () => {
+    if(isPlaying) {
+      iframe.src = '';
+      setPlay(false);
+    } else {
+      play(cur);
+    }
+  });
+  prevBtn.addEventListener('click', () => play(cur - 1));
+  nextBtn.addEventListener('click', () => play(cur + 1));
+
+  // ── Volume ──
+  volSlider.addEventListener('input', e => {
+    try { iframe.contentWindow.postMessage(JSON.stringify({event:'command',func:'setVolume',args:[+e.target.value]}), '*'); } catch(_){}
+  });
+
+  // ── Playlist toggle ──
+  listBtn.addEventListener('click', () => {
+    const open = playlist.style.display === 'block';
+    playlist.style.display = open ? 'none' : 'block';
+    listBtn.classList.toggle('on', !open);
+  });
+
+  // ── Build playlist ──
+  function buildList() {
+    playlist.innerHTML = TRACKS.map((t,i) => `
+      <div class="lf-row${i===cur?' active':''}" data-i="${i}">
+        <div class="lf-dot"></div>
+        <span class="lf-rnum">${i+1}</span>
+        <div class="lf-rinfo">
+          <div class="lf-rname">${t.name}</div>
+          <div class="lf-rartist">${t.artist}</div>
+        </div>
+        <a class="lf-yt" href="https://youtu.be/${t.id}" target="_blank" onclick="event.stopPropagation()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1C4.5 20.5 12 20.5 12 20.5s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.75 15.5V8.5l6.25 3.5-6.25 3.5z"/></svg>
+        </a>
+      </div>`).join('');
+    playlist.querySelectorAll('.lf-row').forEach(row => {
+      row.addEventListener('click', () => play(+row.dataset.i));
+    });
+  }
+
+  // ── Auto-next via postMessage from YT ──
+  window.addEventListener('message', e => {
+    try {
+      const d = JSON.parse(typeof e.data === 'string' ? e.data : '{}');
+      if(d.event === 'infoDelivery' && d.info?.playerState === 0) play(cur + 1);
+    } catch(_){}
+  });
+
+  // ── Init ──
+  buildList();
+  updateUI();
+})();
 </script>
 </body>
-</html>
