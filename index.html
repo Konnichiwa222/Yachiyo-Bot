@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover"/>
   <title>Yochiyo Hub — Discord Bot</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
@@ -24,7 +24,7 @@
       --radius:  14px;
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; max-width: 100%; }
     body {
       background: var(--bg); color: var(--text);
       font-family:'DM Sans','Segoe UI',system-ui,sans-serif;
@@ -147,7 +147,7 @@
     .hero {
       position:relative; z-index:1; min-height:100vh;
       display:flex; flex-direction:column; align-items:center; justify-content:center;
-      text-align:center; padding:100px 5% 80px;
+      text-align:center; padding:clamp(80px,10vh,120px) 5% 60px;
     }
     .badge {
       display:inline-flex; align-items:center; gap:8px;
@@ -308,14 +308,14 @@
     @keyframes cursorBlink { 0%,100%{opacity:1} 50%{opacity:0} }
 
     .cta-group {
-      margin-top:40px; display:flex; gap:14px; flex-wrap:wrap; justify-content:center;
+      margin-top:clamp(24px,4vh,40px); display:flex; gap:12px; flex-wrap:wrap; justify-content:center;
       animation:fadeUp .7s .3s ease both;
     }
 
     /* ── MAGNETIC BUTTONS ── */
     .btn {
       display:inline-flex; align-items:center; gap:8px;
-      padding:13px 28px; border-radius:var(--radius);
+      padding:clamp(10px,2vw,13px) clamp(18px,4vw,28px); border-radius:var(--radius);
       font-family:'DM Sans','Segoe UI',system-ui,sans-serif;
       font-weight:500; font-size:.95rem; text-decoration:none;
       cursor:pointer; border:1px solid transparent;
@@ -410,7 +410,7 @@
       color:var(--accent2); font-weight:500; margin-bottom:12px;
     }
     .section-title {
-      font-family:'DM Sans','Segoe UI',system-ui,sans-serif; font-weight:700;
+      font-family:'Syne','Segoe UI',system-ui,sans-serif; font-weight:700;
       font-size:clamp(1.8rem,3vw,2.6rem); letter-spacing:-.02em; margin-bottom:60px;
     }
 
@@ -529,7 +529,7 @@
 
     /* ── LEGAL GLASSMORPHISM ── */
     .legal-section { max-width:1200px; margin:0 auto; padding:60px 5% 80px; position:relative; z-index:1; }
-    .legal-cards { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+    .legal-cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
 
     .legal-card {
       position: relative;
@@ -657,6 +657,14 @@
       .legal-cards{grid-template-columns:1fr}
       .nav-links{display:none}
       .stat-item{min-width:50%}
+    }
+
+    /* ── BETA TAG ── */
+    .beta-tag {
+      display:inline-block;
+      background:rgba(240,192,96,.15); border:1px solid rgba(240,192,96,.35);
+      color:#f0c060; font-size:.62rem; font-weight:700; letter-spacing:.1em;
+      border-radius:4px; padding:2px 7px; vertical-align:middle; text-transform:uppercase;
     }
 
     /* ── LOFI PLAYER ── */
