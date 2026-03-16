@@ -5,93 +5,39 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Yochiyo Hub — Discord Bot</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&family=Instrument+Serif:ital@1&display=swap"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;overflow-x:hidden}
 body{background:#0c0d10;color:#e8eaf0;font-family:'DM Sans','Segoe UI',system-ui,sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden}
 :root{--bg:#0c0d10;--surface:#13151a;--border:#1e2028;--accent:#5865F2;--accent2:#7983f5;--gold:#f0c060;--red:#ff6b6b;--green:#5efa8a;--cyan:#64dcff;--purple:#c4a8ff;--text:#e8eaf0;--muted:#6b6f80;--radius:14px}
 
-/* ── WELCOME SCREEN ── */
-#welcome-screen{
-  position:fixed;inset:0;z-index:1000;
-  background:#0c0d10;
+
+/* WELCOME SCREEN */
+#welcome-screen{position:fixed;inset:0;z-index:1000;background:#070810;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  cursor:pointer;
-  transition:opacity .8s cubic-bezier(.4,0,.2,1), transform .8s cubic-bezier(.4,0,.2,1);
-}
-#welcome-screen.exit{
-  opacity:0;
-  transform:scale(1.04);
-  pointer-events:none;
-}
-/* subtle radial glow behind text */
-#welcome-screen::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(88,101,242,.12) 0%,transparent 70%);
-  animation:wglow 3s ease-in-out infinite alternate;
-}
-@keyframes wglow{from{opacity:.6}to{opacity:1}}
-
-.welcome-svg-wrap{
-  position:relative;z-index:1;
-  width:min(700px, 90vw);
-}
-.welcome-svg-wrap svg{width:100%;height:auto;overflow:visible}
-
-/* SVG text stroke draw animation */
-.w-path{
-  fill:none;
-  stroke:#e8eaf0;
-  stroke-width:1.2;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-  stroke-dasharray:var(--len,2000);
-  stroke-dashoffset:var(--len,2000);
-  animation:drawStroke var(--dur,1.2s) var(--delay,0s) cubic-bezier(.4,0,.2,1) forwards;
-}
-/* after draw, fill fades in */
-.w-path-fill{
-  fill:#e8eaf0;
-  stroke:none;
-  opacity:0;
-  animation:fillFade .5s var(--fill-delay,1.3s) ease forwards;
-}
-@keyframes drawStroke{
-  to{stroke-dashoffset:0}
-}
-@keyframes fillFade{
-  to{opacity:1}
-}
-
-.welcome-sub{
-  position:relative;z-index:1;
-  margin-top:28px;
+  cursor:pointer;transition:opacity .6s ease,transform .6s ease}
+#welcome-screen.exit{opacity:0;transform:scale(1.02);pointer-events:none}
+#welcome-screen::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 55% 40% at 50% 50%,rgba(88,101,242,.10) 0%,transparent 100%)}
+.welcome-svg-wrap{position:relative;z-index:1;width:min(680px,88vw)}
+.welcome-svg-wrap svg{width:100%;height:auto;display:block}
+@keyframes drawStroke{to{stroke-dashoffset:0}}
+@keyframes fillFade{to{opacity:1}}
+.welcome-sub{position:relative;z-index:1;margin-top:24px;
   font-family:'DM Sans','Segoe UI',system-ui,sans-serif;
-  font-size:clamp(.8rem,2vw,.9rem);
-  color:var(--muted);
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  opacity:0;
-  animation:subFade .6s 1.6s ease forwards;
-}
-@keyframes subFade{
-  from{opacity:0;transform:translateY(8px)}
-  to{opacity:1;transform:translateY(0)}
-}
-.welcome-hint{
-  position:absolute;bottom:40px;
-  font-size:.72rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;
-  opacity:0;animation:subFade .6s 2s ease forwards;
-  display:flex;flex-direction:column;align-items:center;gap:8px;
-}
-.welcome-hint::after{
-  content:'';display:block;width:1px;height:32px;
-  background:linear-gradient(to bottom,var(--muted),transparent);
-  animation:lineGrow .6s 2.2s ease both;
-  transform-origin:top;
-}
-@keyframes lineGrow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+  font-size:clamp(.75rem,1.8vw,.85rem);color:#4a4d60;
+  letter-spacing:.22em;text-transform:uppercase;
+  opacity:0;animation:wsubFade .5s .95s ease forwards}
+.welcome-hint{position:absolute;bottom:36px;font-size:.68rem;color:#3a3d50;
+  letter-spacing:.14em;text-transform:uppercase;
+  opacity:0;animation:wsubFade .5s 1.3s ease forwards;
+  display:flex;flex-direction:column;align-items:center;gap:8px}
+.welcome-hint::after{content:'';display:block;width:1px;height:28px;
+  background:linear-gradient(to bottom,#3a3d50,transparent);
+  animation:wlineGrow .5s 1.4s ease both;transform-origin:top}
+@keyframes wsubFade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes wlineGrow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
 
 /* noise */
 body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.4;
@@ -494,58 +440,30 @@ footer p{font-size:.82rem;color:var(--muted)}
 </style>
 </head>
 <body>
-<div id="scroll-progress"></div>
-<div id="cursor-glow"></div>
-<div class="blob blob1"></div>
-<div class="blob blob2"></div>
-<div id="particles"></div>
-
 <!-- WELCOME SCREEN -->
 <div id="welcome-screen">
   <div class="welcome-svg-wrap">
-    <!--
-      "Welcome" rendered as SVG paths using Instrument Serif style.
-      We use a large display text approach: actual SVG text with
-      stroke animation, then a fill layer that fades in after draw.
-      font-size large, letter-spacing tight, italic for elegance.
-    -->
-    <svg viewBox="0 0 700 140" xmlns="http://www.w3.org/2000/svg" aria-label="Welcome">
-      <!-- Outline layer: animated stroke draw -->
-      <text
-        x="50%"
-        y="115"
-        text-anchor="middle"
-        font-family="'Instrument Serif', Georgia, serif"
-        font-size="118"
-        font-style="italic"
-        fill="none"
-        stroke="#e8eaf0"
-        stroke-width="1"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        paint-order="stroke"
-        style="
-          stroke-dasharray: 3000;
-          stroke-dashoffset: 3000;
-          animation: drawStroke 1.4s 0.1s cubic-bezier(.4,0,.2,1) forwards;
-        "
+    <svg viewBox="0 0 700 130" xmlns="http://www.w3.org/2000/svg">
+      <text x="50%" y="108" text-anchor="middle"
+        font-family="'Instrument Serif',Georgia,serif" font-size="112" font-style="italic"
+        fill="none" stroke="#e8eaf0" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+        style="stroke-dasharray:3000;stroke-dashoffset:3000;animation:drawStroke .9s .05s cubic-bezier(.4,0,.2,1) forwards"
       >Welcome</text>
-      <!-- Fill layer: fades in after stroke finishes -->
-      <text
-        x="50%"
-        y="115"
-        text-anchor="middle"
-        font-family="'Instrument Serif', Georgia, serif"
-        font-size="118"
-        font-style="italic"
+      <text x="50%" y="108" text-anchor="middle"
+        font-family="'Instrument Serif',Georgia,serif" font-size="112" font-style="italic"
         fill="#e8eaf0"
-        style="opacity:0;animation:fillFade .5s 1.3s ease forwards;"
+        style="opacity:0;animation:fillFade .35s .88s ease forwards"
       >Welcome</text>
     </svg>
   </div>
   <div class="welcome-sub">Yochiyo Hub — Discord Bot</div>
   <div class="welcome-hint">Click anywhere to enter</div>
 </div>
+<div id="scroll-progress"></div>
+<div id="cursor-glow"></div>
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div id="particles"></div>
 
 <svg style="display:none" xmlns="http://www.w3.org/2000/svg"><defs>
   <symbol id="ico-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></symbol>
@@ -692,47 +610,11 @@ footer p{font-size:.82rem;color:var(--muted)}
       </div>
       <button id="lf-list-btn"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>List</button>
     </div>
-    <div id="lf-playlist"></div>
-    <div style="position:absolute;width:0;height:0;overflow:hidden">
-      <iframe id="lf-iframe" width="1" height="1" frameborder="0" allow="autoplay;encrypted-media" style="opacity:0"></iframe>
-    </div>
-  </div>
+    <div id="lf-playlist"></div>  </div>
 </div>
 
 <script>
 'use strict';
-
-/* WELCOME SCREEN */
-(function(){
-  var screen = document.getElementById('welcome-screen');
-  if(!screen) return;
-
-  /* block scroll while welcome is up */
-  document.body.style.overflow = 'hidden';
-
-  function dismiss(){
-    screen.classList.add('exit');
-    document.body.style.overflow = '';
-    /* trigger autoplay immediately — this IS the user gesture */
-    setTimeout(function(){
-      screen.style.display = 'none';
-      /* fire autoplay */
-      if(typeof autoStart === 'function') autoStart();
-      else window._autoStart && window._autoStart();
-    }, 820);
-  }
-
-  /* allow dismiss only after animation has enough time */
-  var ready = false;
-  setTimeout(function(){ ready = true; }, 1500);
-
-  screen.addEventListener('click', function(){
-    if(ready) dismiss();
-  });
-  document.addEventListener('keydown', function(e){
-    if(ready && (e.key === 'Enter' || e.key === ' ')) dismiss();
-  }, {once:true});
-})();
 
 /* SCROLL PROGRESS */
 (function(){
@@ -918,91 +800,123 @@ document.querySelectorAll('.mag-btn').forEach(function(btn){
 /* LOFI PLAYER */
 (function(){
   var TRACKS = [
-    {name:'Lofi Hip Hop Radio',  artist:'Lofi Girl',      id:'jfKfPfyJRdk', color:'linear-gradient(135deg,#5865F2,#a8b4ff)'},
-    {name:'Chillhop Essentials', artist:'Chillhop Music', id:'5yx6BWlEVcY', color:'linear-gradient(135deg,#f0c060,#ff6b6b)'},
-    {name:'Late Night Coding',   artist:'Lofi Geek',      id:'lTRiuFIWV54', color:'linear-gradient(135deg,#5efa8a,#64dcff)'},
-    {name:'Coffee Shop Lofi',    artist:'Dreamy',         id:'kgx4WGK0oNU', color:'linear-gradient(135deg,#c4a8ff,#5865F2)'},
-    {name:'Beats to Relax',      artist:'ChilledCow',     id:'DWcJFNfaw9c', color:'linear-gradient(135deg,#ff6b6b,#f0c060)'},
+    {name:'Chill Beat 1', artist:'Lofi Vibes',   color:'linear-gradient(135deg,#5865F2,#a8b4ff)', src:'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'},
+    {name:'Chill Beat 2', artist:'Night Owl',     color:'linear-gradient(135deg,#f0c060,#ff6b6b)', src:'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3'},
+    {name:'Chill Beat 3', artist:'Dreamy',        color:'linear-gradient(135deg,#5efa8a,#64dcff)', src:'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'},
+    {name:'Chill Beat 4', artist:'Chill Music',   color:'linear-gradient(135deg,#c4a8ff,#5865F2)', src:'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3'},
+    {name:'Chill Beat 5', artist:'Lofi Dreamer',  color:'linear-gradient(135deg,#ff6b6b,#f0c060)', src:'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3'},
   ];
-  var cur=0, isPlaying=false, progTimer=null, progVal=0;
-  var card=document.getElementById('lofi-card'), fab=document.getElementById('lofi-fab');
-  var minBtn=document.getElementById('lofi-min-btn'), disc=document.getElementById('lf-disc');
-  var nameEl=document.getElementById('lf-name'), artistEl=document.getElementById('lf-artist');
-  var playBtn=document.getElementById('lf-play-btn'), playIcon=document.getElementById('lf-play-icon');
-  var volSlider=document.getElementById('lf-vol-slider'), listBtn=document.getElementById('lf-list-btn');
-  var playlist=document.getElementById('lf-playlist'), iframe=document.getElementById('lf-iframe');
-  var progFill=document.getElementById('lf-prog-fill');
-  var PLAY='<polygon points="5 3 19 12 5 21 5 3"/>';
-  var PAUSE='<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
 
-  function startProg(){ stopProg(); progVal=0; progTimer=setInterval(function(){ progVal=(progVal+.05)%100; progFill.style.width=progVal+'%'; },250); }
-  function stopProg(){ clearInterval(progTimer); progFill.style.width='0%'; progVal=0; }
+  var cur=0, audio=new Audio(), progTimer=null;
+  audio.volume = 0.6;
 
-  function setPlay(val){
-    isPlaying=val; playIcon.innerHTML=val?PAUSE:PLAY;
-    val?(disc.classList.add('spin'),startProg()):(disc.classList.remove('spin'),stopProg());
+  var card     = document.getElementById('lofi-card');
+  var fab      = document.getElementById('lofi-fab');
+  var minBtn   = document.getElementById('lofi-min-btn');
+  var disc     = document.getElementById('lf-disc');
+  var nameEl   = document.getElementById('lf-name');
+  var artistEl = document.getElementById('lf-artist');
+  var playBtn  = document.getElementById('lf-play-btn');
+  var playIcon = document.getElementById('lf-play-icon');
+  var volSlider= document.getElementById('lf-vol-slider');
+  var listBtn  = document.getElementById('lf-list-btn');
+  var playlist = document.getElementById('lf-playlist');
+  var progFill = document.getElementById('lf-prog-fill');
+  var PLAY  = '<polygon points="5 3 19 12 5 21 5 3"/>';
+  var PAUSE = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+
+  function setPlayUI(val){
+    playIcon.innerHTML = val ? PAUSE : PLAY;
+    if(val){ disc.classList.add('spin'); startProg(); }
+    else   { disc.classList.remove('spin'); stopProg(); }
   }
+  function startProg(){
+    stopProg();
+    progTimer = setInterval(function(){
+      if(audio.duration) progFill.style.width=(audio.currentTime/audio.duration*100)+'%';
+    }, 300);
+  }
+  function stopProg(){ clearInterval(progTimer); }
+
   function updateUI(){
-    var t=TRACKS[cur]; nameEl.textContent=t.name; artistEl.textContent=t.artist;
+    var t=TRACKS[cur];
+    nameEl.textContent=t.name; artistEl.textContent=t.artist;
     disc.style.background=t.color;
     document.querySelectorAll('.lf-row').forEach(function(r,i){ r.classList.toggle('active',i===cur); });
   }
+
   function play(idx){
-    cur=(idx+TRACKS.length)%TRACKS.length; updateUI();
-    iframe.src='https://www.youtube.com/embed/'+TRACKS[cur].id+'?autoplay=1&controls=0&loop=1&playlist='+TRACKS[cur].id+'&rel=0&mute=0&enablejsapi=1';
-    setPlay(true);
+    cur=(idx+TRACKS.length)%TRACKS.length;
+    updateUI();
+    audio.pause();
+    audio.src=TRACKS[cur].src;
+    audio.load();
+    audio.play().then(function(){ setPlayUI(true); }).catch(function(){ setPlayUI(false); });
   }
-  function buildList(){
-    playlist.innerHTML=TRACKS.map(function(t,i){
-      return '<div class="lf-row'+(i===cur?' active':'')+'" data-i="'+i+'">'+
-        '<div class="lf-dot"></div>'+
-        '<span class="lf-rnum">'+(i+1)+'</span>'+
-        '<div class="lf-rinfo"><div class="lf-rname">'+t.name+'</div><div class="lf-rartist">'+t.artist+'</div></div>'+
-        '<a class="lf-yt" href="https://youtu.be/'+t.id+'" target="_blank" onclick="event.stopPropagation()">'+
-        '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1C4.5 20.5 12 20.5 12 20.5s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.75 15.5V8.5l6.25 3.5-6.25 3.5z"/></svg>'+
-        '</a></div>';
-    }).join('');
-    playlist.querySelectorAll('.lf-row').forEach(function(row){
-      row.addEventListener('click', function(){ play(parseInt(row.dataset.i)); });
-    });
-  }
+
+  audio.addEventListener('ended', function(){ play(cur+1); });
+
+  document.getElementById('lf-progress').addEventListener('click', function(e){
+    if(!audio.duration) return;
+    var r=this.getBoundingClientRect();
+    audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration;
+  });
+
   minBtn.addEventListener('click', function(){ card.classList.add('hidden'); fab.style.display='flex'; });
   fab.addEventListener('click',    function(){ fab.style.display='none'; card.classList.remove('hidden'); });
-  playBtn.addEventListener('click', function(){ if(isPlaying){ iframe.src=''; setPlay(false); } else { play(cur); } });
+  playBtn.addEventListener('click', function(){
+    if(audio.paused){ audio.play().then(function(){ setPlayUI(true); }); }
+    else { audio.pause(); setPlayUI(false); }
+  });
   document.getElementById('lf-prev').addEventListener('click', function(){ play(cur-1); });
   document.getElementById('lf-next').addEventListener('click', function(){ play(cur+1); });
-  volSlider.addEventListener('input', function(e){
-    try{ iframe.contentWindow.postMessage(JSON.stringify({event:'command',func:'setVolume',args:[+e.target.value]}),'*'); }catch(x){}
-  });
+  volSlider.addEventListener('input', function(e){ audio.volume=e.target.value/100; });
   listBtn.addEventListener('click', function(){
     var open=playlist.style.display==='block';
     playlist.style.display=open?'none':'block';
     listBtn.classList.toggle('on',!open);
   });
-  window.addEventListener('message', function(e){
-    try{ var d=JSON.parse(typeof e.data==='string'?e.data:'{}'); if(d.event==='infoDelivery'&&d.info&&d.info.playerState===0) play(cur+1); }catch(x){}
-  });
+
+  function buildList(){
+    playlist.innerHTML=TRACKS.map(function(t,i){
+      return '<div class="lf-row'+(i===cur?' active':'')+'" data-i="'+i+'">'
+        +'<div class="lf-dot"></div>'
+        +'<span class="lf-rnum">'+(i+1)+'</span>'
+        +'<div class="lf-rinfo"><div class="lf-rname">'+t.name+'</div><div class="lf-rartist">'+t.artist+'</div></div>'
+        +'</div>';
+    }).join('');
+    playlist.querySelectorAll('.lf-row').forEach(function(row){
+      row.addEventListener('click', function(){ play(parseInt(row.dataset.i)); });
+    });
+  }
 
   buildList(); updateUI();
 
-  /* AUTOPLAY — called by welcome screen dismiss (which IS a user gesture) */
-  var autoPlayed = false;
+  /* AUTOPLAY after welcome screen */
+  var autoPlayed=false;
   function autoStart(){
-    if(autoPlayed) return;
-    autoPlayed = true;
-    play(0);
+    if(autoPlayed) return; autoPlayed=true; play(0);
   }
-  window._autoStart = autoStart;
-
-  /* fallback: fire on any interaction if welcome screen didn't trigger it */
+  window._autoStart=autoStart;
   ['click','keydown','touchstart'].forEach(function(ev){
-    document.addEventListener(ev, function handler(){
-      setTimeout(autoStart, 100);
-      document.removeEventListener(ev, handler);
-    }, {once:true, passive:true});
+    document.addEventListener(ev, function h(){ setTimeout(autoStart,100); document.removeEventListener(ev,h); },{once:true,passive:true});
   });
-
 })();
+
+/* WELCOME SCREEN */
+(function(){
+  var screen=document.getElementById('welcome-screen');
+  if(!screen) return;
+  document.body.style.overflow='hidden';
+  var ready=false;
+  setTimeout(function(){ ready=true; }, 1000);
+  function dismiss(){
+    screen.classList.add('exit');
+    document.body.style.overflow='';
+    setTimeout(function(){ screen.style.display='none'; if(window._autoStart) window._autoStart(); }, 650);
+  }
+  screen.addEventListener('click', function(){ if(ready) dismiss(); });
+  document.addEventListener('keydown', function(e){ if(ready&&(e.key==='Enter'||e.key===' ')) dismiss(); },{once:true});
+})();
+
 </script>
-</body>
-</html>
