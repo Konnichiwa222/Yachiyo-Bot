@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Terms of Service — Yochiyo Hub</title>
+<title>Privacy Policy — Yochiyo Hub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&family=Instrument+Serif:ital@1&display=swap" media="print" onload="this.media='all'"/>
@@ -94,8 +94,8 @@ body::after{
 nav{position:fixed;top:0;left:0;right:0;z-index:200;
   display:flex;align-items:center;justify-content:space-between;
   padding:0 5%;height:64px;
-  background:rgba(8,10,15,.45);backdrop-filter:blur(24px);
-  border-bottom:1px solid rgba(255,255,255,.08);
+  background:rgba(8,10,15,.85);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
   animation:navDrop .6s cubic-bezier(.16,1,.3,1) both}
 @keyframes navDrop{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}
 .nav-logo{font-family:'Syne',system-ui,sans-serif;font-weight:800;font-size:1.1rem;
@@ -635,8 +635,8 @@ a:hover{text-decoration:underline}
 
 <div class="page-wrap">
   <div class="page-header">
-    <div class="page-tag tag-gold">Terms of Service</div>
-    <h1 class="page-title">Rules of <span class="accent">Engagement</span></h1>
+    <div class="page-tag tag-green">Privacy Policy</div>
+    <h1 class="page-title">Your <span class="accent">Privacy</span></h1>
     <div class="page-meta">
       <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Last Updated: March 15, 2026</span>
       <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Effective: March 15, 2026</span>
@@ -649,93 +649,104 @@ a:hover{text-decoration:underline}
 <div class="page-wrap" style="padding-top:48px">
 
   <div class="doc-section">
-    <div class="section-num num-gold">Section 01</div>
-    <div class="section-title-doc">Agreement to Terms</div>
+    <div class="section-num num-blue">Section 01</div>
+    <div class="section-title-doc">Data We Collect</div>
     <div class="section-body">
-      <p>By adding <span class="gb">Yochiyo Hub</span> to your Discord server, or by using any of its features, you <span class="ggo">agree to be bound</span> by these Terms.</p>
-      <div class="highlight-box red">If you do <span class="gr">not agree</span>, you must <strong>remove the bot</strong> from your server and refrain from using its features.</div>
-    </div>
-  </div>
-  <div class="doc-section">
-    <div class="section-num num-gold">Section 02</div>
-    <div class="section-title-doc">Eligibility</div>
-    <div class="section-body">
+      <p><span class="gb">Yochiyo Hub</span> collects only the data necessary for the bot to function:</p>
       <ul class="doc-list">
-        <li>Be at least <span class="ggo">13 years of age</span> (in compliance with Discord's Terms of Service).</li>
-        <li>Have a <span class="gb">valid and active Discord account</span>.</li>
-        <li>Comply with <a href="https://discord.com/terms">Discord's Terms of Service</a> and <a href="https://discord.com/guidelines">Community Guidelines</a> at all times.</li>
+        <li><span class="gg">Server ID & Channel IDs</span> — For server configuration and channel-specific features.</li>
+        <li><span class="gg">User IDs</span> — To track user-specific data like streaks, points, and permissions.</li>
+        <li><span class="gg">Message content</span> — Only when required for automod, logging, or specific commands you explicitly use.</li>
+        <li><span class="gg">Interaction data</span> — Button clicks, modal submissions, and command usage.</li>
       </ul>
     </div>
   </div>
+
   <div class="doc-section">
-    <div class="section-num num-gold">Section 03</div>
-    <div class="section-title-doc">Permitted Use</div>
+    <div class="section-num num-blue">Section 02</div>
+    <div class="section-title-doc">How We Use Your Data</div>
     <div class="section-body">
+      <p>Your data is used solely to provide and improve our services:</p>
       <ul class="doc-list allowed">
-        <li>Manage and moderate your Discord server using its <span class="gb">administrative features</span>.</li>
-        <li>Engage your community through <span class="ggo">giveaways, streaks</span>, and interactive commands.</li>
-        <li>Automate server tasks such as <span class="gb">role assignment</span> and message filtering.</li>
+        <li>To <span class="gb">moderate</span> your server using automod and filter features.</li>
+        <li>To <span class="gb">track user engagement</span> like streaks, points, and leaderboards.</li>
+        <li>To <span class="gb">provide giveaways</span> and interactive features.</li>
+        <li>To <span class="gb">log events</span> as configured by server owners.</li>
       </ul>
     </div>
   </div>
+
   <div class="doc-section">
-    <div class="section-num num-gold">Section 04</div>
-    <div class="section-title-doc">Prohibited Use</div>
+    <div class="section-num num-blue">Section 03</div>
+    <div class="section-title-doc">Data Storage & Security</div>
     <div class="section-body">
-      <ul class="doc-list prohibited">
-        <li>Violate any applicable <span class="gr">local, national, or international law</span>.</li>
-        <li><span class="gr">Harass, threaten, or harm</span> other users.</li>
-        <li><span class="gr">Spam commands</span> or deliberately abuse the bot.</li>
-        <li>Attempt to <span class="gr">exploit or reverse-engineer</span> the bot's functionality.</li>
-        <li>Use the bot for <span class="gr">illegal activity</span>: scamming, phishing, distributing malware, or fraud.</li>
-        <li>Distribute content that is <span class="gr">illegal, hateful, discriminatory</span>, or sexually explicit.</li>
+      <ul class="doc-list rights">
+        <li>All user data is stored in <span class="gg">encrypted databases</span>.</li>
+        <li>We implement <span class="gg">industry-standard security measures</span> to protect your data.</li>
+        <li>Data is stored on <span class="gg">secure servers</span> with limited access.</li>
+        <li>We <span class="gr">do not sell</span> your data to third parties.</li>
       </ul>
-      <div class="highlight-box red">Violation may result in your server or user account being <span class="gr">permanently blocked</span> without notice.</div>
     </div>
   </div>
+
   <div class="doc-section">
-    <div class="section-num num-gold">Section 05</div>
-    <div class="section-title-doc">Server Owner Responsibilities</div>
+    <div class="section-num num-blue">Section 04</div>
+    <div class="section-title-doc">Data Retention</div>
     <div class="section-body">
+      <p>We retain data only as long as necessary:</p>
       <ul class="doc-list">
-        <li>You are <span class="ggo">responsible</span> for how the bot is configured within your server.</li>
-        <li>Grant only the <span class="gg">minimum permissions necessary</span>.</li>
-        <li>Ensure compliance with <span class="gb">Discord's Terms of Service</span> and applicable laws.</li>
+        <li><span class="ggo">Server data</span> — Retained until the bot is removed from the server.</li>
+        <li><span class="ggo">User data</span> — Retained while the user remains active on servers using the bot.</li>
+        <li><span class="ggo">Logs</span> — Configurable retention period set by server owners (default: 30 days).</li>
       </ul>
     </div>
   </div>
+
   <div class="doc-section">
-    <div class="section-num num-gold">Section 06</div>
-    <div class="section-title-doc">Availability & Disclaimer</div>
+    <div class="section-num num-blue">Section 05</div>
+    <div class="section-title-doc">Third-Party Services</div>
     <div class="section-body">
-      <div class="highlight-box red"><span class="gb">Yochiyo Hub</span> is provided <span class="gr">"as is"</span> without warranties of any kind. We do <span class="gr">not guarantee</span> 100% uptime or error-free operation.</div>
+      <div class="highlight-box blue">
+        <span class="gb">Yochiyo Hub</span> uses the following third-party services:
+        <ul style="margin-top:10px;margin-left:20px">
+          <li><strong>Discord API</strong> — For bot functionality and user interactions.</li>
+          <li><strong>Database Hosting</strong> — For persistent data storage.</li>
+        </ul>
+      </div>
     </div>
   </div>
+
   <div class="doc-section">
-    <div class="section-num num-gold">Section 07</div>
-    <div class="section-title-doc">Intellectual Property</div>
+    <div class="section-num num-blue">Section 06</div>
+    <div class="section-title-doc">User Rights</div>
     <div class="section-body">
-      <ul class="doc-list prohibited">
-        <li><span class="gr">Copy, redistribute, or resell</span> the bot or its code without express written permission.</li>
-        <li><span class="gr">Claim ownership</span> of the bot or any of its components.</li>
-        <li><span class="gr">Remove or alter</span> any copyright notices or credits.</li>
+      <p>You have the following rights regarding your data:</p>
+      <ul class="doc-list rights">
+        <li><span class="gg">Access</span> — Request a copy of your stored data.</li>
+        <li><span class="gg">Deletion</span> — Request removal of your data (use <span class="gb">/request-data-deletion</span> command).</li>
+        <li><span class="gg">Opt-out</span> — Leave any server using the bot to stop data collection for that server.</li>
       </ul>
     </div>
   </div>
+
   <div class="doc-section">
-    <div class="section-num num-gold">Section 08</div>
-    <div class="section-title-doc">Termination</div>
+    <div class="section-num num-blue">Section 07</div>
+    <div class="section-title-doc">Children's Privacy</div>
     <div class="section-body">
-      <p>We reserve the right to <span class="gr">suspend or permanently block</span> any user or server for violating these Terms.</p>
-      <div class="highlight-box green">You may stop using the bot at any time by <span class="gg">removing it from your server</span>.</div>
+      <div class="highlight-box red">
+        <span class="gb">Yochiyo Hub</span> is not intended for users under <span class="gr">13 years of age</span>. We do not knowingly collect data from children under 13.
+      </div>
     </div>
   </div>
+
   <div class="doc-section">
-    <div class="section-num num-gold">Section 09</div>
-    <div class="section-title-doc">Changes & Contact</div>
+    <div class="section-num num-blue">Section 08</div>
+    <div class="section-title-doc">Changes to This Policy</div>
     <div class="section-body">
-      <p>We may update these Terms from time to time. Continued use after changes constitutes acceptance.</p>
-      <div class="highlight-box gold"><strong>Bot Name:</strong> <span class="gb">Yochiyo Hub</span> — Contact us directly via <span class="ggo">Discord</span>.</div>
+      <p>We may update this Privacy Policy periodically. We will notify users of any material changes via our support server or Discord DM.</p>
+      <div class="highlight-box gold">
+        <strong>Questions?</strong> Contact us directly via <span class="ggo">Discord</span>.
+      </div>
     </div>
   </div>
 
