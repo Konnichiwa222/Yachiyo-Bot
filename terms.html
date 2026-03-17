@@ -1,664 +1,1057 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Terms of Service — Yochiyo Hub</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&family=Instrument+Serif:ital@1&display=swap" media="print" onload="this.media='all'"/>
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:#5865F2 #080a0f}
-html::-webkit-scrollbar{width:7px}
-html::-webkit-scrollbar-button{display:none;width:0;height:0}
-html::-webkit-scrollbar-track{background:#080a0f}
-html::-webkit-scrollbar-thumb{background:#5865F2;border-radius:4px;min-height:40px}
-html::-webkit-scrollbar-thumb:hover{background:#7983f5}
-html::-webkit-scrollbar-corner{background:#080a0f}
-body{background:#080a0f;color:#e8eaf0;font-family:'DM Sans','Segoe UI',system-ui,sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden}
-:root{
-  --bg:#080a0f;--surface:#0d1017;--border:#161b24;
-  --accent:#5865F2;--accent2:#7983f5;
-  --gold:#f0c060;--red:#ff6b6b;--green:#5efa8a;--cyan:#64dcff;--purple:#c4a8ff;
-  --text:#e8eaf0;--muted:#5a6070;--radius:12px;
-}
-
-/* ── BACKGROUND ── */
-body{background:#030108}
-/* Universe: layered radial gradients with nebula */
-body::before{
-  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 80% 50% at 20% 40%, rgba(88,101,242,.12) 0%, transparent 50%),
-    radial-gradient(ellipse 60% 40% at 80% 60%, rgba(196,168,255,.08) 0%, transparent 45%),
-    radial-gradient(ellipse 50% 35% at 50% 80%, rgba(100,220,255,.05) 0%, transparent 40%),
-    radial-gradient(circle at 30% 20%, rgba(88,101,242,.04) 0%, transparent 30%),
-    radial-gradient(circle at 70% 30%, rgba(196,168,255,.03) 0%, transparent 25%);
-  animation:universePulse 15s ease-in-out infinite alternate;
-}
-@keyframes universePulse{0%{opacity:.8}100%{opacity:1}}
-/* Star field with depth */
-body::after{
-  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:
-    radial-gradient(circle, rgba(255,255,255,.8) 1px, transparent 1px),
-    radial-gradient(circle, rgba(200,210,255,.6) 1px, transparent 1px),
-    radial-gradient(circle, rgba(121,131,245,.4) 1.5px, transparent 1.5px);
-  background-size:550px 550px, 350px 350px, 200px 200px;
-  background-position:0 0, 100px 50px, 200px 100px;
-  animation:starDrift 120s linear infinite;
-}
-@keyframes starDrift{from{background-position:0 0, 100px 50px, 200px 100px}to{background-position:550px 550px, 450px 400px, 700px 700px}}
-
-/* blobs */
-.blob{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(1px)}
-.blob1{width:800px;height:800px;top:-300px;left:50%;transform:translateX(-50%);
-  background:radial-gradient(circle, rgba(88,101,242,.08) 0%, transparent 65%);
-  animation:b1 10s ease-in-out infinite alternate}
-.blob2{width:500px;height:500px;bottom:0%;right:-150px;
-  background:radial-gradient(circle, rgba(121,131,245,.05) 0%, transparent 65%);
-  animation:b2 13s ease-in-out infinite alternate}
-@keyframes b1{from{transform:translateX(-50%) scale(1)}to{transform:translateX(-50%) scale(1.1)}}
-@keyframes b2{from{transform:scale(1)}to{transform:scale(1.15) rotate(20deg)}}
-
-/* cursor glow */
-#cursor-glow{position:fixed;width:280px;height:280px;border-radius:50%;
-  background:radial-gradient(circle, rgba(88,101,242,.04) 0%, transparent 70%);
-  pointer-events:none;z-index:0;transform:translate(-50%,-50%);top:0;left:0}
-
-/* stars */
-#particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-.star{position:absolute;opacity:0;animation:starFloat linear infinite;will-change:transform,opacity}
-.star svg{display:block}
-@keyframes starFloat{
-  0%{transform:translateY(0) translateX(0) rotate(0deg) scale(1);opacity:0}
-  8%{opacity:var(--star-opacity)}
-  50%{transform:translateY(-45vh) translateX(var(--drift)) rotate(180deg) scale(var(--star-scale))}
-  92%{opacity:calc(var(--star-opacity)*.3)}
-  100%{transform:translateY(-105vh) translateX(calc(var(--drift)*2)) rotate(360deg) scale(.2);opacity:0}}
-.star.twinkle{animation:starTwinkle linear infinite}
-@keyframes starTwinkle{
-  0%{opacity:0}8%{opacity:var(--star-opacity)}20%{opacity:calc(var(--star-opacity)*.3)}
-  35%{opacity:var(--star-opacity)}70%{opacity:var(--star-opacity)}
-  92%{opacity:calc(var(--star-opacity)*.2)}100%{opacity:0}}
-
-/* scroll progress */
-#scroll-progress{position:fixed;top:0;left:0;z-index:300;height:2px;width:0%;
-  background:linear-gradient(90deg,var(--accent),var(--accent2),#a8ffcb,var(--gold));
-  background-size:200% 100%;animation:progShimmer 3s linear infinite;
-  box-shadow:0 0 8px rgba(121,131,245,.6);transition:width .05s linear}
-@keyframes progShimmer{0%{background-position:100% 0}100%{background-position:-100% 0}}
-
-/* nav */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 5%;height:64px;
-  background:rgba(8,10,15,.45);backdrop-filter:blur(24px);
-  border-bottom:1px solid rgba(255,255,255,.08);
-  animation:navDrop .6s cubic-bezier(.16,1,.3,1) both}
-@keyframes navDrop{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}
-.nav-logo{font-family:'Syne',system-ui,sans-serif;font-weight:800;font-size:1.1rem;
-  color:var(--text);display:flex;align-items:center;gap:10px;text-decoration:none}
-.nav-logo .fox{display:flex;align-items:center;justify-content:center;
-  width:30px;height:30px;border-radius:8px;
-  background:rgba(88,101,242,.12);border:1px solid rgba(88,101,242,.2);
-  transition:transform .3s,background .3s}
-.nav-logo:hover .fox{transform:rotate(-10deg) scale(1.12);background:rgba(88,101,242,.2)}
-.logo-icon{color:var(--accent2);filter:drop-shadow(0 0 5px rgba(121,131,245,.5))}
-.nav-back{font-size:.82rem;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
-.nav-back:hover{color:var(--accent2)}
-svg{display:inline-block;vertical-align:middle;flex-shrink:0}
-.icon-accent,.icon-blue{color:#7983f5}.icon-green{color:#5efa8a}.icon-gold{color:#f0c060}
-.icon-red{color:#ff6b6b}.icon-cyan{color:#64dcff}.icon-purple{color:#c4a8ff}.icon-muted{color:#6b7280}
-
-/* scroll to top */
-#top-btn{position:fixed;bottom:28px;right:28px;z-index:50;width:42px;height:42px;border-radius:10px;
-  background:var(--surface);border:1px solid var(--border);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;
-  opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s,border-color .2s,color .2s,transform .2s}
-#top-btn.show{opacity:1;visibility:visible}
-#top-btn:hover{border-color:var(--accent2);color:var(--accent2);transform:translateY(-2px)}
-
-/* ── LEGAL PAGE ── */
-.page-wrap{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:90px 5% 100px}
-.page-header{margin-bottom:52px;animation:fadeUp .6s .1s ease both}
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-.page-tag{display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:5px 14px;font-size:.75rem;margin-bottom:20px;letter-spacing:.05em}
-.page-tag::before{content:'';width:6px;height:6px;border-radius:50%;animation:blinkDot 1.5s infinite}
-@keyframes blinkDot{0%,100%{opacity:1}50%{opacity:.2}}
-.page-tag.tag-green{background:rgba(94,250,138,.1);border:1px solid rgba(94,250,138,.2);color:var(--green)}
-.page-tag.tag-green::before{background:var(--green)}
-.page-tag.tag-gold{background:rgba(240,192,96,.1);border:1px solid rgba(240,192,96,.2);color:var(--gold)}
-.page-tag.tag-gold::before{background:var(--gold)}
-.page-tag::before{content:'';width:6px;height:6px;border-radius:50%;animation:blinkDot 1.5s infinite}
-@keyframes blinkDot{0%,100%{opacity:1}50%{opacity:.2}}
-.page-tag.tag-green{background:rgba(94,250,138,.1);border:1px solid rgba(94,250,138,.2);color:var(--green)}
-.page-tag.tag-green::before{background:var(--green)}
-.page-tag.tag-gold{background:rgba(240,192,96,.1);border:1px solid rgba(240,192,96,.2);color:var(--gold)}
-.page-tag.tag-gold::before{background:var(--gold)}
-.page-title{font-family:'Syne',system-ui,sans-serif;font-weight:800;font-size:clamp(2rem,5vw,3.2rem);line-height:1.1;letter-spacing:-.02em;margin-bottom:14px}
-.page-title .accent{color:var(--accent2)}
-.page-meta{font-size:.85rem;color:var(--muted);display:flex;gap:20px;flex-wrap:wrap}
-.page-meta span{display:flex;align-items:center;gap:5px}
-.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:0 5%}
-
-/* doc sections */
-.doc-section{margin-bottom:52px;opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
-.doc-section.visible{opacity:1;transform:translateY(0)}
-.section-num{display:inline-block;font-family:'Syne',system-ui,sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;border-radius:6px;padding:3px 10px;margin-bottom:12px}
-.section-num.num-blue{color:var(--accent2);background:rgba(88,101,242,.1);border:1px solid rgba(88,101,242,.2)}
-.section-num.num-gold{color:var(--gold);background:rgba(240,192,96,.08);border:1px solid rgba(240,192,96,.18)}
-.section-title-doc{font-family:'Syne',system-ui,sans-serif;font-weight:700;font-size:1.3rem;letter-spacing:-.01em;color:var(--text);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
-.section-body{font-size:.95rem;color:#b0b4c8;line-height:1.85}
-.section-body p{margin-bottom:12px}
-.section-body p:last-child{margin-bottom:0}
-.doc-list{list-style:none;margin:14px 0}
-.doc-list li{position:relative;padding:10px 14px 10px 44px;margin-bottom:6px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);font-size:.92rem;color:#b0b4c8;transition:border-color .2s,transform .2s}
-.doc-list li:hover{border-color:rgba(88,101,242,.3);transform:translateX(3px)}
-.doc-list li::before{content:'';position:absolute;left:16px;top:50%;transform:translateY(-50%);width:8px;height:8px;border-radius:50%;background:var(--accent2);box-shadow:0 0 6px rgba(121,131,245,.6)}
-.doc-list.no li::before{background:var(--red);box-shadow:0 0 6px rgba(255,107,107,.5)}
-.doc-list.rights li::before{background:var(--green);box-shadow:0 0 6px rgba(94,250,138,.5)}
-.doc-list.prohibited li::before{background:var(--red);box-shadow:0 0 6px rgba(255,107,107,.5);border-radius:2px}
-.doc-list.allowed li::before{background:var(--green);box-shadow:0 0 6px rgba(94,250,138,.5)}
-.highlight-box{border-radius:var(--radius);padding:18px 20px;margin:16px 0;font-size:.92rem;color:#b0b4c8;border-left-width:3px;border-left-style:solid}
-.highlight-box.blue{background:rgba(88,101,242,.06);border-color:rgba(88,101,242,.2);border-left-color:var(--accent2)}
-.highlight-box.green{background:rgba(94,250,138,.05);border-color:rgba(94,250,138,.2);border-left-color:var(--green)}
-.highlight-box.red{background:rgba(255,107,107,.05);border-color:rgba(255,107,107,.2);border-left-color:var(--red)}
-.highlight-box.gold{background:rgba(240,192,96,.05);border-color:rgba(240,192,96,.2);border-left-color:var(--gold)}
-.gb{font-weight:600;color:#7983f5;text-shadow:0 0 9px rgba(121,131,245,.75)}
-.gg{font-weight:600;color:#5efa8a;text-shadow:0 0 9px rgba(94,250,138,.75)}
-.gr{font-weight:600;color:#ff6b6b;text-shadow:0 0 9px rgba(255,107,107,.75)}
-.ggo{font-weight:600;color:#f0c060;text-shadow:0 0 9px rgba(240,192,96,.75)}
-strong{color:var(--text);font-weight:500}
-a{color:var(--accent2);text-decoration:none}
-a:hover{text-decoration:underline}
-
-/* footer */
-footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:24px 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;max-width:1280px;margin:0 auto}
-footer .logo{font-family:'Syne',system-ui,sans-serif;font-weight:700;font-size:.95rem}
-footer p{font-size:.8rem;color:var(--muted)}
-
-/* responsive */
-@media(max-width:640px){.page-wrap{padding:80px 5% 60px}.page-meta{flex-direction:column;gap:8px}}
-
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Terms of Service — Yochiyo Hub</title>
+  
+  <!-- Preconnect to Google Fonts for faster loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&family=Instrument+Serif:ital@1&display=swap" media="print" onload="this.media='all'"/>
+  
+  <style>
+    /* ===== RESET & BASE STYLES ===== */
+    /* Reset box-sizing cho tất cả elements */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    /* Cấu hình scrollbar đẹp hơn */
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      scrollbar-width: thin;
+      scrollbar-color: #5865F2 #080a0f;
+    }
+    
+    /* Scrollbar cho Webkit browsers (Chrome, Safari, Edge) */
+    html::-webkit-scrollbar { width: 7px; }
+    html::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
+    html::-webkit-scrollbar-track { background: #080a0f; }
+    html::-webkit-scrollbar-thumb { 
+      background: #5865F2; 
+      border-radius: 4px; 
+      min-height: 40px; 
+    }
+    html::-webkit-scrollbar-thumb:hover { background: #7983f5; }
+    html::-webkit-scrollbar-corner { background: #080a0f; }
+    
+    /* Body base styles */
+    body {
+      background: #080a0f;
+      color: #e8eaf0;
+      font-family: 'DM Sans', 'Segoe UI', system-ui, sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    
+    /* ===== CSS VARIABLES ===== */
+    :root {
+      --bg: #080a0f;           /* Main background - very dark blue-black */
+      --surface: #0d1017;      /* Card/element background */
+      --border: #161b24;       /* Border color */
+      --accent: #5865F2;       /* Primary accent - Discord blue */
+      --accent2: #7983f5;      /* Lighter accent */
+      --gold: #f0c060;         /* Gold color */
+      --red: #ff6b6b;         /* Red color */
+      --green: #5efa8a;        /* Green color */
+      --cyan: #64dcff;         /* Cyan color */
+      --purple: #c4a8ff;       /* Purple color */
+      --text: #e8eaf0;         /* Main text color */
+      --muted: #5a6070;       /* Muted text color */
+      --radius: 12px;         /* Border radius */
+    }
+    
+    /* ===== BACKGROUND EFFECTS ===== */
+    /* Deep space background */
+    body { background: #030108; }
+    
+    /* Nebula effect - layered radial gradients */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 40%, rgba(88,101,242,.12) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 80% 60%, rgba(196,168,255,.08) 0%, transparent 45%),
+        radial-gradient(ellipse 50% 35% at 50% 80%, rgba(100,220,255,.05) 0%, transparent 40%),
+        radial-gradient(circle at 30% 20%, rgba(88,101,242,.04) 0%, transparent 30%),
+        radial-gradient(circle at 70% 30%, rgba(196,168,255,.03) 0%, transparent 25%);
+      animation: universePulse 15s ease-in-out infinite alternate;
+    }
+    
+    @keyframes universePulse {
+      0% { opacity: .8; }
+      100% { opacity: 1; }
+    }
+    
+    /* Star field - multiple layers for depth */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,.8) 1px, transparent 1px),
+        radial-gradient(circle, rgba(200,210,255,.6) 1px, transparent 1px),
+        radial-gradient(circle, rgba(121,131,245,.4) 1.5px, transparent 1.5px);
+      background-size: 550px 550px, 350px 350px, 200px 200px;
+      background-position: 0 0, 100px 50px, 200px 100px;
+      animation: starDrift 120s linear infinite;
+    }
+    
+    @keyframes starDrift {
+      from { background-position: 0 0, 100px 50px, 200px 100px; }
+      to { background-position: 550px 550px, 450px 400px, 700px 700px; }
+    }
+    
+    /* ===== BLOB EFFECTS ===== */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(1px);
+    }
+    
+    .blob1 {
+      width: 800px;
+      height: 800px;
+      top: -300px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: radial-gradient(circle, rgba(88,101,242,.08) 0%, transparent 65%);
+      animation: b1 10s ease-in-out infinite alternate;
+    }
+    
+    .blob2 {
+      width: 500px;
+      height: 500px;
+      bottom: 0%;
+      right: -150px;
+      background: radial-gradient(circle, rgba(121,131,245,.05) 0%, transparent 65%);
+      animation: b2 13s ease-in-out infinite alternate;
+    }
+    
+    @keyframes b1 {
+      from { transform: translateX(-50%) scale(1); }
+      to { transform: translateX(-50%) scale(1.1); }
+    }
+    
+    @keyframes b2 {
+      from { transform: scale(1); }
+      to { transform: scale(1.15) rotate(20deg); }
+    }
+    
+    /* ===== CURSOR GLOW ===== */
+    #cursor-glow {
+      position: fixed;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(88,101,242,.04) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      transform: translate(-50%,-50%);
+      top: 0;
+      left: 0;
+    }
+    
+    /* ===== PARTICLE STARS ===== */
+    #particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    
+    .star {
+      position: absolute;
+      opacity: 0;
+      animation: starFloat linear infinite;
+      will-change: transform, opacity;
+    }
+    
+    .star svg { display: block; }
+    
+    @keyframes starFloat {
+      0% { transform: translateY(0) translateX(0) rotate(0deg) scale(1); opacity: 0; }
+      8% { opacity: var(--star-opacity); }
+      50% { transform: translateY(-45vh) translateX(var(--drift)) rotate(180deg) scale(var(--star-scale)); }
+      92% { opacity: calc(var(--star-opacity)*.3); }
+      100% { transform: translateY(-105vh) translateX(calc(var(--drift)*2)) rotate(360deg) scale(.2); opacity: 0; }
+    }
+    
+    .star.twinkle { animation: starTwinkle linear infinite; }
+    
+    @keyframes starTwinkle {
+      0% { opacity: 0; }
+      8% { opacity: var(--star-opacity); }
+      20% { opacity: calc(var(--star-opacity)*.3); }
+      35% { opacity: var(--star-opacity); }
+      70% { opacity: var(--star-opacity); }
+      92% { opacity: calc(var(--star-opacity)*.2); }
+      100% { opacity: 0; }
+    }
+    
+    /* ===== SCROLL PROGRESS BAR ===== */
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 300;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2), #a8ffcb, var(--gold));
+      background-size: 200% 100%;
+      animation: progShimmer 2.5s linear infinite;
+      box-shadow: 0 0 10px rgba(121,131,245,.7);
+      border-radius: 0 2px 2px 0;
+      transition: width .05s linear;
+    }
+    
+    @keyframes progShimmer {
+      0% { background-position: 100% 0; }
+      100% { background-position: -100% 0; }
+    }
+    
+    /* ===== NAVIGATION ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      height: 64px;
+      background: rgba(12,13,16,.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      animation: navDrop .6s cubic-bezier(.16,1,.3,1) both;
+    }
+    
+    @keyframes navDrop {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    .nav-logo {
+      font-family: 'Syne', 'Segoe UI', system-ui, sans-serif;
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    
+    .nav-logo .fox {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(88,101,242,.12);
+      border: 1px solid rgba(88,101,242,.2);
+      transition: transform .3s, background .3s;
+    }
+    
+    .nav-logo:hover .fox {
+      transform: rotate(-10deg) scale(1.15);
+      background: rgba(88,101,242,.22);
+    }
+    
+    .logo-icon {
+      color: var(--accent2);
+      filter: drop-shadow(0 0 6px rgba(121,131,245,.6));
+    }
+    
+    /* Back link */
+    .nav-back {
+      font-size: .82rem;
+      color: var(--muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color .2s;
+    }
+    
+    .nav-back:hover { color: var(--accent2); }
+    
+    /* ===== ICONS ===== */
+    svg {
+      display: inline-block;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+    
+    .icon-accent, .icon-blue { color: #7983f5; }
+    .icon-green { color: #5efa8a; }
+    .icon-gold { color: #f0c060; }
+    .icon-red { color: #ff6b6b; }
+    .icon-cyan { color: #64dcff; }
+    .icon-purple { color: #c4a8ff; }
+    .icon-muted { color: #9ba3c0; }
+    
+    /* ===== PAGE HEADER ===== */
+    .page-header {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 90px 5% 40px;
+      animation: fadeUp .6s .1s ease both;
+    }
+    
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .page-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-size: .75rem;
+      margin-bottom: 20px;
+      letter-spacing: .05em;
+    }
+    
+    .page-tag::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      animation: blinkDot 1.5s infinite;
+    }
+    
+    @keyframes blinkDot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .2; }
+    }
+    
+    .page-tag.tag-gold {
+      background: rgba(240,192,96,.1);
+      border: 1px solid rgba(240,192,96,.2);
+      color: var(--gold);
+    }
+    
+    .page-tag.tag-gold::before { background: var(--gold); }
+    
     .page-title {
-      font-family: 'Syne', sans-serif; font-weight: 800;
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      line-height: 1.1; letter-spacing: -.02em;
+      font-family: 'Syne', 'Segoe UI', system-ui, sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem,5vw,3.2rem);
+      line-height: 1.1;
+      letter-spacing: -.02em;
       margin-bottom: 14px;
     }
+    
     .page-title .accent { color: var(--gold); }
-
+    
     .page-meta {
-      font-size: .85rem; color: var(--muted);
-      display: flex; gap: 20px; flex-wrap: wrap;
+      font-size: .85rem;
+      color: var(--muted);
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
     }
+    
     .page-meta span { display: flex; align-items: center; gap: 5px; }
-
+    
     .divider {
       height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      background: linear-gradient(90deg,transparent,var(--border),transparent);
       margin: 0 5%;
     }
-
+    
+    /* ===== CONTENT WRAPPER ===== */
     .content {
-      position: relative; z-index: 1;
-      max-width: 860px; margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
       padding: 60px 5% 100px;
     }
-
+    
+    /* Document sections */
     .doc-section {
       margin-bottom: 52px;
-      opacity: 0; transform: translateY(28px);
+      opacity: 0;
+      transform: translateY(28px);
       transition: opacity .6s ease, transform .6s ease;
     }
-    .doc-section.visible { opacity: 1; transform: translateY(0); }
-
+    
+    .doc-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
     .section-num {
       display: inline-block;
-      font-family: 'Syne', sans-serif; font-weight: 700;
-      font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
+      font-family: 'Syne', 'Segoe UI', system-ui, sans-serif;
+      font-weight: 700;
+      font-size: .72rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      border-radius: 6px;
+      padding: 3px 10px;
+      margin-bottom: 12px;
       color: var(--gold);
       background: rgba(240,192,96,.08);
       border: 1px solid rgba(240,192,96,.18);
-      border-radius: 6px; padding: 3px 10px;
-      margin-bottom: 12px;
     }
-
+    
     .section-title {
-      font-family: 'Syne', sans-serif; font-weight: 700;
-      font-size: 1.3rem; letter-spacing: -.01em;
-      color: var(--text); margin-bottom: 14px;
+      font-family: 'Syne', 'Segoe UI', system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 1.3rem;
+      letter-spacing: -.01em;
+      color: var(--text);
+      margin-bottom: 14px;
       padding-bottom: 10px;
       border-bottom: 1px solid var(--border);
     }
-
-    .section-body { font-size: .95rem; color: #b0b4c8; line-height: 1.85; }
+    
+    .section-body {
+      font-size: .95rem;
+      color: #b0b4c8;
+      line-height: 1.85;
+    }
+    
     .section-body p { margin-bottom: 12px; }
     .section-body p:last-child { margin-bottom: 0; }
-
-    .doc-list { list-style: none; margin: 14px 0; }
+    
+    /* Document lists */
+    .doc-list {
+      list-style: none;
+      margin: 14px 0;
+    }
+    
     .doc-list li {
-      position: relative; padding: 10px 14px 10px 44px;
+      position: relative;
+      padding: 10px 14px 10px 44px;
       margin-bottom: 6px;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      font-size: .92rem; color: #b0b4c8;
+      font-size: .92rem;
+      color: #b0b4c8;
       transition: border-color .2s, transform .2s;
     }
-    .doc-list li:hover { border-color: rgba(88,101,242,.3); transform: translateX(3px); }
+    
+    .doc-list li:hover {
+      border-color: rgba(88,101,242,.3);
+      transform: translateX(3px);
+    }
+    
     .doc-list li::before {
       content: '';
-      position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
-      width: 8px; height: 8px; border-radius: 50%;
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
       background: var(--accent2);
       box-shadow: 0 0 6px rgba(121,131,245,.6);
     }
+    
     .doc-list.prohibited li::before {
       background: var(--red);
       box-shadow: 0 0 6px rgba(255,107,107,.5);
       border-radius: 2px;
-      width: 8px; height: 8px;
     }
+    
     .doc-list.allowed li::before {
       background: var(--green);
       box-shadow: 0 0 6px rgba(94,250,138,.5);
     }
-
+    
+    /* Highlight boxes */
     .highlight-box {
-      background: rgba(88,101,242,.06);
-      border: 1px solid rgba(88,101,242,.2);
-      border-left: 3px solid var(--accent2);
       border-radius: var(--radius);
-      padding: 18px 20px; margin: 16px 0;
-      font-size: .92rem; color: #b0b4c8;
+      padding: 18px 20px;
+      margin: 16px 0;
+      font-size: .92rem;
+      color: #b0b4c8;
+      border-left-width: 3px;
+      border-left-style: solid;
     }
-    .highlight-box.gold {
-      background: rgba(240,192,96,.05);
-      border-color: rgba(240,192,96,.2);
-      border-left-color: var(--gold);
+    
+    .highlight-box.blue {
+      background: rgba(88,101,242,.06);
+      border-color: rgba(88,101,242,.2);
+      border-left-color: var(--accent2);
     }
-    .highlight-box.red {
-      background: rgba(255,107,107,.05);
-      border-color: rgba(255,107,107,.2);
-      border-left-color: var(--red);
-    }
+    
     .highlight-box.green {
       background: rgba(94,250,138,.05);
       border-color: rgba(94,250,138,.2);
       border-left-color: var(--green);
     }
-
-    .gb, .gg, .gr, .ggo {
-      font-weight: 600; position: relative; display: inline;
+    
+    .highlight-box.red {
+      background: rgba(255,107,107,.05);
+      border-color: rgba(255,107,107,.2);
+      border-left-color: var(--red);
     }
-    .gb  { color: #7983f5; text-shadow: 0 0 9px rgba(121,131,245,.75), 0 0 22px rgba(121,131,245,.35); }
-    .gg  { color: #5efa8a; text-shadow: 0 0 9px rgba(94,250,138,.75),  0 0 22px rgba(94,250,138,.35); }
-    .gr  { color: #ff6b6b; text-shadow: 0 0 9px rgba(255,107,107,.75), 0 0 22px rgba(255,107,107,.35); }
-    .ggo { color: #f0c060; text-shadow: 0 0 9px rgba(240,192,96,.75),  0 0 22px rgba(240,192,96,.35); }
-
+    
+    .highlight-box.gold {
+      background: rgba(240,192,96,.05);
+      border-color: rgba(240,192,96,.2);
+      border-left-color: var(--gold);
+    }
+    
+    /* Text highlights with glow */
+    .gb, .gg, .gr, .ggo {
+      font-weight: 600;
+      position: relative;
+      display: inline;
+    }
+    
+    .gb { 
+      color: #7983f5; 
+      text-shadow: 0 0 9px rgba(121,131,245,.75), 0 0 22px rgba(121,131,245,.35); 
+    }
+    
+    .gg { 
+      color: #5efa8a; 
+      text-shadow: 0 0 9px rgba(94,250,138,.75), 0 0 22px rgba(94,250,138,.35); 
+    }
+    
+    .gr { 
+      color: #ff6b6b; 
+      text-shadow: 0 0 9px rgba(255,107,107,.75), 0 0 22px rgba(255,107,107,.35); 
+    }
+    
+    .ggo { 
+      color: #f0c060; 
+      text-shadow: 0 0 9px rgba(240,192,96,.75), 0 0 22px rgba(240,192,96,.35); 
+    }
+    
+    /* Shimmer effect */
     .gb::after, .gg::after, .gr::after, .ggo::after {
       content: '';
-      position: absolute; top: 0; left: -110%; width: 50%; height: 100%;
+      position: absolute;
+      top: 0;
+      left: -110%;
+      width: 50%;
+      height: 100%;
       background: linear-gradient(90deg, transparent, rgba(255,255,255,.28), transparent);
       animation: shimmer 4s ease-in-out infinite;
       pointer-events: none;
     }
-    .gg::after  { animation-delay: .8s; }
-    .gr::after  { animation-delay: 1.6s; }
+    
+    .gg::after { animation-delay: .8s; }
+    .gr::after { animation-delay: 1.6s; }
     .ggo::after { animation-delay: 2.4s; }
-    @keyframes shimmer { 0%{left:-110%} 40%{left:160%} 100%{left:160%} }
-
+    
+    @keyframes shimmer {
+      0% { left: -110%; }
+      40% { left: 160%; }
+      100% { left: 160%; }
+    }
+    
     strong { color: var(--text); font-weight: 500; }
     a { color: var(--accent2); text-decoration: none; }
     a:hover { text-decoration: underline; }
-
+    
+    /* ===== FOOTER ===== */
     footer {
-      position: relative; z-index: 1;
+      position: relative;
+      z-index: 1;
       border-top: 1px solid var(--border);
       padding: 28px 5%;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
     }
-    footer .logo { font-family: 'Syne', sans-serif; font-weight: 700; font-size: .95rem; }
-    footer p { font-size: .8rem; color: var(--muted); }
+    
+    footer .logo {
+      font-family: 'Syne', 'Segoe UI', system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    
+    footer p {
+      font-size: .82rem;
+      color: var(--muted);
+    }
+    
+    /* ===== SCROLL TO TOP BUTTON ===== */
+    #top-btn {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 50;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s, transform .2s, border-color .2s, color .2s;
+    }
+    
+    #top-btn.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    
+    #top-btn:hover {
+      border-color: var(--accent2);
+      color: var(--accent2);
+      transform: translateY(-3px);
+    }
+    
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 640px) {
+      .page-header { padding: 80px 5% 30px; }
+      .content { padding: 40px 5% 60px; }
+      .page-meta { flex-direction: column; gap: 8px; }
+      .nav-links { display: none; }
+    }
   </style>
 </head>
+
 <body>
-<div id="scroll-progress"></div>
-<div id="cursor-glow"></div>
-<div class="blob blob1"></div>
-<div class="blob blob2"></div>
-<div id="particles"></div>
-
-<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <symbol id="ico-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></symbol>
-    <symbol id="ico-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></symbol>
-    <symbol id="ico-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></symbol>
-  </defs>
-</svg>
-
-<nav>
-  <a class="nav-logo" href="https://konnichiwa222.github.io/Yachiyo-Bot/">
-    <span class="fox"><svg width="18" height="18" class="logo-icon"><use href="#ico-spark"/></svg></span>
-    Yochiyo Hub
-  </a>
-  <a class="nav-back" href="https://konnichiwa222.github.io/Yachiyo-Bot/">
-    <svg width="14" height="14"><use href="#ico-arrow-left"/></svg>
-    Back to home
-  </a>
-</nav>
-
-<div class="page-header">
-  <div class="page-tag tag-gold">Terms of Service</div>
-  <h1 class="page-title">Rules of <span class="accent">Engagement</span></h1>
-  <div class="page-meta">
-    <span>
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      Last Updated: March 15, 2026
-    </span>
-    <span>
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      Effective: March 15, 2026
-    </span>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<div class="content">
-
-  <!-- 1 -->
-  <div class="doc-section">
-    <div class="section-num">Section 01</div>
-    <div class="section-title">Agreement to Terms</div>
-    <div class="section-body">
-      <p>By adding <span class="gb">Yochiyo Hub</span> ("the Bot") to your Discord server, or by using any of its features as a server member, you <span class="ggo">agree to be bound</span> by these Terms of Service ("Terms").</p>
-      <div class="highlight-box red">
-        If you do <span class="gr">not agree</span> to these Terms, you must <strong>remove the bot</strong> from your server and refrain from using its features.
-      </div>
-      <p>These Terms apply to <span class="ggo">all users</span> of the bot, including server owners, administrators, and regular members.</p>
+  <!-- Scroll progress bar -->
+  <div id="scroll-progress"></div>
+  
+  <!-- Cursor glow effect -->
+  <div id="cursor-glow"></div>
+  
+  <!-- Background blob effects -->
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  
+  <!-- Floating particles container -->
+  <div id="particles"></div>
+  
+  <!-- SVG definitions (hidden) -->
+  <svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Spark icon -->
+      <symbol id="ico-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/>
+      </symbol>
+      
+      <!-- Arrow left icon -->
+      <symbol id="ico-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"/>
+        <polyline points="12 19 5 12 12 5"/>
+      </symbol>
+      
+      <!-- Chevron up icon -->
+      <symbol id="ico-chevron-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"/>
+      </symbol>
+    </defs>
+  </svg>
+  
+  <!-- Navigation bar -->
+  <nav>
+    <a class="nav-logo" href="https://konnichiwa222.github.io/Yachiyo-Bot/">
+      <span class="fox">
+        <svg width="20" height="20" class="logo-icon">
+          <use href="#ico-spark"/>
+        </svg>
+      </span>
+      Yochiyo Hub
+    </a>
+    <a class="nav-back" href="https://konnichiwa222.github.io/Yachiyo-Bot/">
+      <svg width="14" height="14">
+        <use href="#ico-arrow-left"/>
+      </svg>
+      Back to home
+    </a>
+  </nav>
+  
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="page-tag tag-gold">Terms of Service</div>
+    <h1 class="page-title">Rules of <span class="accent">Engagement</span></h1>
+    <div class="page-meta">
+      <span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/>
+          <line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        Last Updated: March 15, 2026
+      </span>
+      <span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+        Effective: March 15, 2026
+      </span>
     </div>
   </div>
-
-  <!-- 2 -->
-  <div class="doc-section">
-    <div class="section-num">Section 02</div>
-    <div class="section-title">About Yochiyo Hub</div>
-    <div class="section-body">
-      <p><span class="gb">Yochiyo Hub</span> is a multi-purpose Discord bot developed and maintained by the <span class="ggo">Yochiyo team</span>. It provides tools including:</p>
-      <ul class="doc-list">
-        <li>Anti-link filtering</li>
-        <li>Auto-responder</li>
-        <li>Auto-role assignment</li>
-        <li>Giveaway management</li>
-        <li>Ticket system</li>
-        <li>Streak tracking</li>
-        <li>Channel locking/unlocking</li>
-        <li>AFK status & Fun commands</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- 3 -->
-  <div class="doc-section">
-    <div class="section-num">Section 03</div>
-    <div class="section-title">Eligibility</div>
-    <div class="section-body">
-      <p>To use Yochiyo Hub, you must:</p>
-      <ul class="doc-list">
-        <li>Be at least <span class="ggo">13 years of age</span> (in compliance with Discord's Terms of Service).</li>
-        <li>Have a <span class="gb">valid and active Discord account</span>.</li>
-        <li>Comply with <a href="https://discord.com/terms">Discord's Terms of Service</a> and <a href="https://discord.com/guidelines">Community Guidelines</a> at all times.</li>
-      </ul>
-      <div class="highlight-box gold">
-        <span class="ggo">Server owners</span> are responsible for ensuring that all members who interact with the bot meet these requirements.
-      </div>
-    </div>
-  </div>
-
-  <!-- 4 -->
-  <div class="doc-section">
-    <div class="section-num">Section 04</div>
-    <div class="section-title">Permitted Use</div>
-    <div class="section-body">
-      <p>You <span class="gg">may</span> use Yochiyo Hub to:</p>
-      <ul class="doc-list allowed">
-        <li>Manage and moderate your Discord server using its <span class="gb">administrative features</span>.</li>
-        <li>Engage your community through <span class="ggo">giveaways, streaks</span>, and interactive commands.</li>
-        <li>Automate server tasks such as <span class="gb">role assignment</span> and message filtering.</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- 5 -->
-  <div class="doc-section">
-    <div class="section-num">Section 05</div>
-    <div class="section-title">Prohibited Use</div>
-    <div class="section-body">
-      <p>You may <span class="gr">NOT</span> use Yochiyo Hub to:</p>
-      <ul class="doc-list prohibited">
-        <li>Violate any applicable local, national, or <span class="gr">international law</span> or regulation.</li>
-        <li><span class="gr">Harass, threaten, or harm</span> other users.</li>
-        <li><span class="gr">Spam commands</span> or deliberately abuse the bot to cause performance issues.</li>
-        <li>Attempt to <span class="gr">exploit, reverse-engineer</span>, or manipulate the bot's functionality.</li>
-        <li>Use the bot for any <span class="gr">illegal activity</span>: scamming, phishing, distributing malware, or fraud.</li>
-        <li>Violate the rights of any third party, including <span class="gr">intellectual property rights</span>.</li>
-        <li>Distribute content that is <span class="gr">illegal, hateful, discriminatory</span>, or sexually explicit.</li>
-        <li>Attempt <span class="gr">unauthorized access</span> to the bot's backend, data storage, or hosting infrastructure.</li>
-      </ul>
-      <div class="highlight-box red">
-        Violation may result in your server or user account being <span class="gr">permanently blocked</span> without notice.
+  
+  <!-- Divider line -->
+  <div class="divider"></div>
+  
+  <!-- Main content -->
+  <div class="content">
+    
+    <!-- Section 1: Agreement to Terms -->
+    <div class="doc-section">
+      <div class="section-num">Section 01</div>
+      <div class="section-title">Agreement to Terms</div>
+      <div class="section-body">
+        <p>By adding <span class="gb">Yochiyo Hub</span> ("the Bot") to your Discord server, or by using any of its features as a server member, you <span class="ggo">agree to be bound</span> by these Terms of Service ("Terms").</p>
+        <div class="highlight-box red">
+          If you do <span class="gr">not agree</span> to these Terms, you must <strong>remove the bot</strong> from your server and refrain from using its features.
+        </div>
+        <p>These Terms apply to <span class="ggo">all users</span> of the bot, including server owners, administrators, and regular members.</p>
       </div>
     </div>
-  </div>
-
-  <!-- 6 -->
-  <div class="doc-section">
-    <div class="section-num">Section 06</div>
-    <div class="section-title">Server Owner & Admin Responsibilities</div>
-    <div class="section-body">
-      <p>If you are a <span class="ggo">server owner or administrator</span> who has added Yochiyo Hub:</p>
-      <ul class="doc-list">
-        <li>You are <span class="ggo">responsible</span> for how the bot is configured and used within your server.</li>
-        <li>You must ensure compliance with <span class="gb">Discord's Terms of Service</span> and all applicable laws.</li>
-        <li>You are responsible for managing <span class="gb">permissions</span> granted to the bot — grant only the <span class="gg">minimum permissions necessary</span>.</li>
-        <li>You accept responsibility for configuring features like <span class="gb">anti-link</span> and <span class="gb">autoresponder</span> appropriately.</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- 7 -->
-  <div class="doc-section">
-    <div class="section-num">Section 07</div>
-    <div class="section-title">Availability and Uptime</div>
-    <div class="section-body">
-      <p>We strive to keep Yochiyo Hub online and functional, but we do <span class="gr">not guarantee</span>:</p>
-      <ul class="doc-list prohibited">
-        <li><span class="gr">100% uptime</span> or uninterrupted service.</li>
-        <li>That the bot will be available at any specific time.</li>
-        <li>That all features will function correctly at all times.</li>
-      </ul>
-      <div class="highlight-box">
-        We reserve the right to take the bot <span class="ggo">offline for maintenance</span> at any time and without prior notice.
+    
+    <!-- Section 2: About Yochiyo Hub -->
+    <div class="doc-section">
+      <div class="section-num">Section 02</div>
+      <div class="section-title">About Yochiyo Hub</div>
+      <div class="section-body">
+        <p><span class="gb">Yochiyo Hub</span> is a multi-purpose Discord bot developed and maintained by the <span class="ggo">Yochiyo team</span>. It provides tools including:</p>
+        <ul class="doc-list">
+          <li>Anti-link filtering</li>
+          <li>Auto-responder</li>
+          <li>Auto-role assignment</li>
+          <li>Giveaway management</li>
+          <li>Ticket system</li>
+          <li>Streak tracking</li>
+          <li>Channel locking/unlocking</li>
+          <li>AFK status & Fun commands</li>
+        </ul>
       </div>
     </div>
-  </div>
-
-  <!-- 8 -->
-  <div class="doc-section">
-    <div class="section-num">Section 08</div>
-    <div class="section-title">Changes to Features</div>
-    <div class="section-body">
-      <p>We reserve the right to <span class="ggo">add, modify, or remove features</span> of the bot at any time, change how data is stored, or <span class="gr">discontinue the bot entirely</span>. We will attempt to provide reasonable notice when possible.</p>
-    </div>
-  </div>
-
-  <!-- 9 -->
-  <div class="doc-section">
-    <div class="section-num">Section 09</div>
-    <div class="section-title">Intellectual Property</div>
-    <div class="section-body">
-      <p>All code, assets, and branding associated with <span class="gb">Yochiyo Hub</span> are the <span class="ggo">intellectual property</span> of the Yochiyo team. You may <span class="gr">not</span>:</p>
-      <ul class="doc-list prohibited">
-        <li><span class="gr">Copy, redistribute, or resell</span> the bot or its code without express written permission.</li>
-        <li><span class="gr">Claim ownership</span> of the bot or any of its components.</li>
-        <li><span class="gr">Remove or alter</span> any copyright notices or credits embedded in the bot.</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- 10 -->
-  <div class="doc-section">
-    <div class="section-num">Section 10</div>
-    <div class="section-title">Disclaimer of Warranties</div>
-    <div class="section-body">
-      <div class="highlight-box red">
-        <span class="gb">Yochiyo Hub</span> is provided <span class="gr">"as is"</span> and <span class="gr">"as available"</span> <strong>without warranties of any kind</strong>, either express or implied.
-      </div>
-      <p>We disclaim all warranties including merchantability, fitness for a particular purpose, and guarantees that the bot will be <span class="gr">error-free</span> or meet your specific needs.</p>
-    </div>
-  </div>
-
-  <!-- 11 -->
-  <div class="doc-section">
-    <div class="section-num">Section 11</div>
-    <div class="section-title">Limitation of Liability</div>
-    <div class="section-body">
-      <p>The <span class="gb">Yochiyo team</span> shall not be liable for any direct, indirect, incidental, or consequential <span class="gr">damages</span> arising from your use of the bot, loss of data, server disruption, or misuse of features.</p>
-      <div class="highlight-box red">
-        Your use of the bot is entirely at your <span class="gr">own risk</span>.
+    
+    <!-- Section 3: Eligibility -->
+    <div class="doc-section">
+      <div class="section-num">Section 03</div>
+      <div class="section-title">Eligibility</div>
+      <div class="section-body">
+        <p>To use Yochiyo Hub, you must:</p>
+        <ul class="doc-list">
+          <li>Be at least <span class="ggo">13 years of age</span> (in compliance with Discord's Terms of Service).</li>
+          <li>Have a <span class="gb">valid and active Discord account</span>.</li>
+          <li>Comply with <a href="https://discord.com/terms">Discord's Terms of Service</a> and <a href="https://discord.com/guidelines">Community Guidelines</a> at all times.</li>
+        </ul>
+        <div class="highlight-box gold">
+          <span class="ggo">Server owners</span> are responsible for ensuring that all members who interact with the bot meet these requirements.
+        </div>
       </div>
     </div>
-  </div>
-
-  <!-- 12 -->
-  <div class="doc-section">
-    <div class="section-num">Section 12</div>
-    <div class="section-title">Termination</div>
-    <div class="section-body">
-      <p>We reserve the right to <span class="gr">suspend or permanently block</span> any user or server from using Yochiyo Hub at any time, including for:</p>
-      <ul class="doc-list prohibited">
-        <li>Violation of these <span class="gr">Terms</span>.</li>
-        <li><span class="gr">Abuse</span> of the bot or its features.</li>
-        <li>Any conduct we determine to be <span class="gr">harmful</span> to users, the bot, or our team.</li>
-      </ul>
-      <div class="highlight-box green">
-        You may stop using the bot at any time by <span class="gg">removing it from your server</span>.
+    
+    <!-- Section 4: Permitted Use -->
+    <div class="doc-section">
+      <div class="section-num">Section 04</div>
+      <div class="section-title">Permitted Use</div>
+      <div class="section-body">
+        <p>You <span class="gg">may</span> use Yochiyo Hub to:</p>
+        <ul class="doc-list allowed">
+          <li>Manage and moderate your Discord server using its <span class="gb">administrative features</span>.</li>
+          <li>Engage your community through <span class="ggo">giveaways, streaks</span>, and interactive commands.</li>
+          <li>Automate server tasks such as <span class="gb">role assignment</span> and message filtering.</li>
+        </ul>
       </div>
     </div>
-  </div>
-
-  <!-- 13 -->
-  <div class="doc-section">
-    <div class="section-num">Section 13</div>
-    <div class="section-title">Governing Law</div>
-    <div class="section-body">
-      <p>These Terms are governed by and construed in accordance with <span class="ggo">applicable laws</span>. Any disputes shall be resolved through <span class="gg">good-faith negotiation</span> wherever possible.</p>
-    </div>
-  </div>
-
-  <!-- 14 -->
-  <div class="doc-section">
-    <div class="section-num">Section 14</div>
-    <div class="section-title">Changes to These Terms</div>
-    <div class="section-body">
-      <p>We may update these Terms from time to time. When we do, we will update the <span class="gb">"Last Updated"</span> date. Continued use of the bot after changes constitutes your <span class="ggo">acceptance</span> of the revised Terms.</p>
-    </div>
-  </div>
-
-  <!-- 15 -->
-  <div class="doc-section">
-    <div class="section-num">Section 15</div>
-    <div class="section-title">Contact</div>
-    <div class="section-body">
-      <p>If you have any questions about these Terms, please reach out to the <span class="gb">Yochiyo team</span> directly via <span class="ggo">Discord</span>.</p>
-      <div class="highlight-box gold">
-        <strong>Bot Name:</strong> <span class="gb">Yochiyo Hub</span>
+    
+    <!-- Section 5: Prohibited Use -->
+    <div class="doc-section">
+      <div class="section-num">Section 05</div>
+      <div class="section-title">Prohibited Use</div>
+      <div class="section-body">
+        <p>You may <span class="gr">NOT</span> use Yochiyo Hub to:</p>
+        <ul class="doc-list prohibited">
+          <li>Violate any applicable local, national, or <span class="gr">international law</span> or regulation.</li>
+          <li><span class="gr">Harass, threaten, or harm</span> other users.</li>
+          <li><span class="gr">Spam commands</span> or deliberately abuse the bot to cause performance issues.</li>
+          <li>Attempt to <span class="gr">exploit, reverse-engineer</span>, or manipulate the bot's functionality.</li>
+          <li>Use the bot for any <span class="gr">illegal activity</span>: scamming, phishing, distributing malware, or fraud.</li>
+          <li>Violate the rights of any third party, including <span class="gr">intellectual property rights</span>.</li>
+          <li>Distribute content that is <span class="gr">illegal, hateful, discriminatory</span>, or sexually explicit.</li>
+          <li>Attempt <span class="gr">unauthorized access</span> to the bot's backend, data storage, or hosting infrastructure.</li>
+        </ul>
+        <div class="highlight-box red">
+          Violation may result in your server or user account being <span class="gr">permanently blocked</span> without notice.
+        </div>
       </div>
     </div>
+    
+    <!-- Section 6: Server Owner & Admin Responsibilities -->
+    <div class="doc-section">
+      <div class="section-num">Section 06</div>
+      <div class="section-title">Server Owner & Admin Responsibilities</div>
+      <div class="section-body">
+        <p>If you are a <span class="ggo">server owner or administrator</span> who has added Yochiyo Hub:</p>
+        <ul class="doc-list">
+          <li>You are <span class="ggo">responsible</span> for how the bot is configured and used within your server.</li>
+          <li>You must ensure compliance with <span class="gb">Discord's Terms of Service</span> and all applicable laws.</li>
+          <li>You are responsible for managing <span class="gb">permissions</span> granted to the bot — grant only the <span class="gg">minimum permissions necessary</span>.</li>
+          <li>You accept responsibility for configuring features like <span class="gb">anti-link</span> and <span class="gb">autoresponder</span> appropriately.</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Section 7: Availability and Uptime -->
+    <div class="doc-section">
+      <div class="section-num">Section 07</div>
+      <div class="section-title">Availability and Uptime</div>
+      <div class="section-body">
+        <p>We strive to keep Yochiyo Hub online and functional, but we do <span class="gr">not guarantee</span>:</p>
+        <ul class="doc-list prohibited">
+          <li><span class="gr">100% uptime</span> or uninterrupted service.</li>
+          <li>That the bot will be available at any specific time.</li>
+          <li>That all features will function correctly at all times.</li>
+        </ul>
+        <div class="highlight-box">
+          We reserve the right to take the bot <span class="ggo">offline for maintenance</span> at any time and without prior notice.
+        </div>
+      </div>
+    </div>
+    
+    <!-- Section 8: Changes to Features -->
+    <div class="doc-section">
+      <div class="section-num">Section 08</div>
+      <div class="section-title">Changes to Features</div>
+      <div class="section-body">
+        <p>We reserve the right to <span class="ggo">add, modify, or remove features</span> of the bot at any time, change how data is stored, or <span class="gr">discontinue the bot entirely</span>. We will attempt to provide reasonable notice when possible.</p>
+      </div>
+    </div>
+    
+    <!-- Section 9: Intellectual Property -->
+    <div class="doc-section">
+      <div class="section-num">Section 09</div>
+      <div class="section-title">Intellectual Property</div>
+      <div class="section-body">
+        <p>All code, assets, and branding associated with <span class="gb">Yochiyo Hub</span> are the <span class="ggo">intellectual property</span> of the Yochiyo team. You may <span class="gr">not</span>:</p>
+        <ul class="doc-list prohibited">
+          <li><span class="gr">Copy, redistribute, or resell</span> the bot or its code without express written permission.</li>
+          <li><span class="gr">Claim ownership</span> of the bot or any of its components.</li>
+          <li><span class="gr">Remove or alter</span> any copyright notices or credits embedded in the bot.</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Section 10: Disclaimer of Warranties -->
+    <div class="doc-section">
+      <div class="section-num">Section 10</div>
+      <div class="section-title">Disclaimer of Warranties</div>
+      <div class="section-body">
+        <div class="highlight-box red">
+          <span class="gb">Yochiyo Hub</span> is provided <span class="gr">"as is"</span> and <span class="gr">"as available"</span> <strong>without warranties of any kind</strong>, either express or implied.
+        </div>
+        <p>We disclaim all warranties including merchantability, fitness for a particular purpose, and guarantees that the bot will be <span class="gr">error-free</span> or meet your specific needs.</p>
+      </div>
+    </div>
+    
+    <!-- Section 11: Limitation of Liability -->
+    <div class="doc-section">
+      <div class="section-num">Section 11</div>
+      <div class="section-title">Limitation of Liability</div>
+      <div class="section-body">
+        <p>The <span class="gb">Yochiyo team</span> shall not be liable for any direct, indirect, incidental, or consequential <span class="gr">damages</span> arising from your use of the bot, loss of data, server disruption, or misuse of features.</p>
+        <div class="highlight-box red">
+          Your use of the bot is entirely at your <span class="gr">own risk</span>.
+        </div>
+      </div>
+    </div>
+    
+    <!-- Section 12: Termination -->
+    <div class="doc-section">
+      <div class="section-num">Section 12</div>
+      <div class="section-title">Termination</div>
+      <div class="section-body">
+        <p>We reserve the right to <span class="gr">suspend or permanently block</span> any user or server from using Yochiyo Hub at any time, including for:</p>
+        <ul class="doc-list prohibited">
+          <li>Violation of these <span class="gr">Terms</span>.</li>
+          <li><span class="gr">Abuse</span> of the bot or its features.</li>
+          <li>Any conduct we determine to be <span class="gr">harmful</span> to users, the bot, or our team.</li>
+        </ul>
+        <div class="highlight-box green">
+          You may stop using the bot at any time by <span class="gg">removing it from your server</span>.
+        </div>
+      </div>
+    </div>
+    
+    <!-- Section 13: Governing Law -->
+    <div class="doc-section">
+      <div class="section-num">Section 13</div>
+      <div class="section-title">Governing Law</div>
+      <div class="section-body">
+        <p>These Terms are governed by and construed in accordance with <span class="ggo">applicable laws</span>. Any disputes shall be resolved through <span class="gg">good-faith negotiation</span> wherever possible.</p>
+      </div>
+    </div>
+    
+    <!-- Section 14: Changes to These Terms -->
+    <div class="doc-section">
+      <div class="section-num">Section 14</div>
+      <div class="section-title">Changes to These Terms</div>
+      <div class="section-body">
+        <p>We may update these Terms from time to time. When we do, we will update the <span class="gb">"Last Updated"</span> date. Continued use of the bot after changes constitutes your <span class="ggo">acceptance</span> of the revised Terms.</p>
+      </div>
+    </div>
+    
+    <!-- Section 15: Contact -->
+    <div class="doc-section">
+      <div class="section-num">Section 15</div>
+      <div class="section-title">Contact</div>
+      <div class="section-body">
+        <p>If you have any questions about these Terms, please reach out to the <span class="gb">Yochiyo team</span> directly via <span class="ggo">Discord</span>.</p>
+        <div class="highlight-box gold">
+          <strong>Bot Name:</strong> <span class="gb">Yochiyo Hub</span>
+        </div>
+      </div>
+    </div>
+    
   </div>
-
-</div>
-
-<footer>
-  <div class="logo">
-    <svg width="14" height="14" style="color:var(--accent2);vertical-align:-2px;margin-right:6px"><use href="#ico-spark"/></svg>
-    Yochiyo Hub
-  </div>
-  <p>© 2026 Yochiyo — All Rights Reserved</p>
-</footer>
-
-<button id="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-  <svg width="18" height="18"><use href="#ico-chevron-up"/></svg>
-</button>
-
-<script>
-'use strict';
-
-/* SCROLL PROGRESS */
-(function(){
-  var bar = document.getElementById('scroll-progress');
-  window.addEventListener('scroll', function(){
-    var total = document.documentElement.scrollHeight - window.innerHeight;
-    bar.style.width = (total > 0 ? window.scrollY / total * 100 : 0).toFixed(2) + '%';
-  }, {passive:true});
-})();
-
-/* CURSOR GLOW */
-var glowEl = document.getElementById('cursor-glow');
-if(glowEl){
-  var cx = innerWidth/2, cy = innerHeight/2;
-  document.addEventListener('mousemove', function(e){ cx=e.clientX; cy=e.clientY; }, {passive:true});
-  (function tick(){ glowEl.style.left=cx+'px'; glowEl.style.top=cy+'px'; requestAnimationFrame(tick); })();
-}
-
-/* FLOATING STARS */
-(function(){
-  var container = document.getElementById('particles');
-  if(!container) return;
-  var shapes = [
-    '<svg viewBox="-12 -12 24 24"><path d="M0-10 L2.5-2.5 L10 0 L2.5 2.5 L0 10 L-2.5 2.5 L-10 0 L-2.5-2.5Z" fill="currentColor"/></svg>',
-    '<svg viewBox="-12 -12 24 24"><polygon points="0,-10 2.9,-4 9.5,-3.1 4.8,1.5 6,8.1 0,5 -6,8.1 -4.8,1.5 -9.5,-3.1 -2.9,-4" fill="currentColor"/></svg>',
-    '<svg viewBox="-6 -6 12 12"><circle cx="0" cy="0" r="1.5" fill="currentColor"/><line x1="0" y1="-5" x2="0" y2="5" stroke="currentColor" stroke-width=".7"/><line x1="-5" y1="0" x2="5" y2="0" stroke="currentColor" stroke-width=".7"/></svg>'
-  ];
-  var colors = ['#7983f5','#5865F2','#f0c060','#5efa8a','#c4a8ff','#64dcff'];
-  for(var i=0; i<30; i++){
-    var el = document.createElement('div');
-    el.className = 'star' + (Math.random() < .3 ? ' twinkle' : '');
-    var size = Math.random()*10+4;
-    var color = colors[Math.floor(Math.random()*colors.length)];
-    el.style.cssText = [
-      'width:'+size+'px','height:'+size+'px',
-      'left:'+(Math.random()*100).toFixed(1)+'%',
-      'bottom:'+(Math.random()*30).toFixed(1)+'%',
-      'color:'+color,
-      '--star-opacity:'+(Math.random()*.3+.1).toFixed(2),
-      '--drift:'+(Math.random()*80-40).toFixed(0)+'px',
-      '--star-scale:'+(Math.random()*.4+.6).toFixed(2),
-      'animation-duration:'+(Math.random()*20+25).toFixed(1)+'s',
-      'animation-delay:-'+(Math.random()*30).toFixed(1)+'s'
-    ].join(';');
-    el.innerHTML = shapes[Math.floor(Math.random()*shapes.length)];
-    container.appendChild(el);
-  }
-})();
-
-/* SECTION REVEAL */
-var revObs = new IntersectionObserver(function(es){
-  es.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('visible'); });
-}, {threshold:.08});
-document.querySelectorAll('.doc-section').forEach(function(el,i){
-  el.style.transitionDelay = (i*.04)+'s'; revObs.observe(el);
-});
-
-/* SCROLL TO TOP */
-(function(){
-  var btn = document.getElementById('top-btn');
-  window.addEventListener('scroll', function(){ btn.classList.toggle('show', window.scrollY > 400); }, {passive:true});
-})();
-</script>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="logo">
+      <svg width="14" height="14" style="color:var(--accent2);vertical-align:-2px;margin-right:6px">
+        <use href="#ico-spark"/>
+      </svg>
+      Yochiyo Hub
+    </div>
+    <p>© 2026 Yochiyo — All Rights Reserved</p>
+  </footer>
+  
+  <!-- Scroll to top button -->
+  <button id="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <svg width="18" height="18">
+      <use href="#ico-chevron-up"/>
+    </svg>
+  </button>
+  
+  <!-- JavaScript -->
+  <script>
+    'use strict';
+    
+    /* ===== SCROLL PROGRESS ===== */
+    // Tính toán và hiển thị thanh tiến trình khi cuộn trang
+    (function() {
+      var bar = document.getElementById('scroll-progress');
+      window.addEventListener('scroll', function() {
+        // Tính tổng chiều cao có thể cuộn
+        var total = document.documentElement.scrollHeight - window.innerHeight;
+        // Tính phần trăm đã cuộn
+        bar.style.width = (total > 0 ? window.scrollY / total * 100 : 0).toFixed(2) + '%';
+      }, { passive: true });
+    })();
+    
+    /* ===== CURSOR GLOW ===== */
+    // Di chuyển hiệu ứng glow theo con trỏ chuột
+    var glowEl = document.getElementById('cursor-glow');
+    if (glowEl) {
+      var cx = innerWidth / 2, cy = innerHeight / 2;
+      document.addEventListener('mousemove', function(e) { 
+        cx = e.clientX; 
+        cy = e.clientY; 
+      }, { passive: true });
+      
+      (function tick() { 
+        glowEl.style.left = cx + 'px'; 
+        glowEl.style.top = cy + 'px'; 
+        requestAnimationFrame(tick); 
+      })();
+    }
+    
+    /* ===== FLOATING STARS ===== */
+    // Tạo các ngôi sao bay lơ lửng
+    (function() {
+      var container = document.getElementById('particles');
+      if (!container) return;
+      
+      // Các hình dạng ngôi sao khác nhau (SVG)
+      var shapes = [
+        '<svg viewBox="-12 -12 24 24"><path d="M0-10 L2.5-2.5 L10 0 L2.5 2.5 L0 10 L-2.5 2.5 L-10 0 L-2.5-2.5Z" fill="currentColor"/></svg>',
+        '<svg viewBox="-12 -12 24 24"><polygon points="0,-10 2.9,-4 9.5,-3.1 4.8,1.5 6,8.1 0,5 -6,8.1 -4.8,1.5 -9.5,-3.1 -2.9,-4" fill="currentColor"/></svg>',
+        '<svg viewBox="-6 -6 12 12"><circle cx="0" cy="0" r="1.5" fill="currentColor"/><line x1="0" y1="-5" x2="0" y2="5" stroke="currentColor" stroke-width=".7"/><line x1="-5" y1="0" x2="5" y2="0" stroke="currentColor" stroke-width=".7"/></svg>',
+      ];
+      
+      // Màu sắc ngôi sao
+      var colors = ['#7983f5','#5865F2','#f0c060','#5efa8a','#c4a8ff','#64dcff'];
+      
+      // Tạo 30 ngôi sao
+      for (var i = 0; i < 30; i++) {
+        var el = document.createElement('div');
+        el.className = 'star' + (Math.random() < .3 ? ' twinkle' : '');
+        
+        var size = Math.random() * 10 + 4;
+        var color = colors[Math.floor(Math.random() * colors.length)];
+        
+        el.style.cssText = [
+          'width:' + size + 'px',
+          'height:' + size + 'px',
+          'left:' + (Math.random() * 100).toFixed(1) + '%',
+          'bottom:' + (Math.random() * 30).toFixed(1) + '%',
+          'color:' + color,
+          '--star-opacity:' + (Math.random() * .3 + .1).toFixed(2),
+          '--drift:' + (Math.random() * 80 - 40).toFixed(0) + 'px',
+          '--star-scale:' + (Math.random() * .4 + .6).toFixed(2),
+          'animation-duration:' + (Math.random() * 20 + 25).toFixed(1) + 's',
+          'animation-delay:-' + (Math.random() * 30).toFixed(1) + 's',
+        ].join(';');
+        
+        el.innerHTML = shapes[Math.floor(Math.random() * shapes.length)];
+        container.appendChild(el);
+      }
+    })();
+    
+    /* ===== SECTION REVEAL ===== */
+    // Hiệu ứng hiển thị từng section khi cuộn
+    (function() {
+      var revObs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) { 
+          if(e.isIntersecting) e.target.classList.add('visible'); 
+        });
+      }, { threshold: .08 });
+      
+      document.querySelectorAll('.doc-section').forEach(function(el, i) {
+        el.style.transitionDelay = (i * .04) + 's';
+        revObs.observe(el);
+      });
+    })();
+    
+    /* ===== SCROLL TO TOP ===== */
+    // Hiện/ẩn nút scroll to top
+    (function() {
+      var btn = document.getElementById('top-btn');
+      window.addEventListener('scroll', function() { 
+        btn.classList.toggle('show', window.scrollY > 400); 
+      }, { passive: true });
+    })();
+  </script>
 </body>
 </html>
